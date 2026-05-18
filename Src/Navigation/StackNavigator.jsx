@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import SignUp from '../Screens/SignUp'
 import Login from '../Screens/Login'
-import ChatList from '../Screens/ChatList'
+import BottomTab from './BottomTab'
 const Stack = createStackNavigator();
 
 const StackNavigator = () => {
@@ -10,8 +10,7 @@ const StackNavigator = () => {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="ChatList" component={ChatList} />
-
+            <Stack.Screen name='ChatList' component={BottomTab} />
         </Stack.Navigator>
     );
 }

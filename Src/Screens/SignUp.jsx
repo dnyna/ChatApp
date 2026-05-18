@@ -27,8 +27,12 @@ const SignUp = () => {
     }
     return (
         <View style={styles.container}>
-            <View style={{ paddingLeft: 125, }}>
-                <Text style={{ fontSize: 20, fontWeight: 600 }}>SignUp</Text>
+            <View style={styles.headerTitle}>
+                <Text style={styles.signUpTxt}>SignUp</Text>
+            </View>
+            <View>
+                <Text style={{ textAlign: 'center' }}>SignUp to start chat</Text>
+
             </View>
 
             <View style={styles.emailinputWrapper}>
@@ -54,7 +58,7 @@ const SignUp = () => {
                     placeholderTextColor={'grey'} />
             </View>
             <View style={styles.btnWrapper}>
-                <TouchableOpacity style={styles.creteAcntBtn} onPress={() =>{createUser()}}>
+                <TouchableOpacity style={styles.creteAcntBtn} onPress={() => { createUser('Login') }}>
                     <Text style={styles.txt}>Create account</Text>
                 </TouchableOpacity>
             </View>
@@ -63,6 +67,12 @@ const SignUp = () => {
                 <Text>
                     By continuing, you agree to our Terms of Service and Privacy Policy.
                 </Text>
+                <TouchableOpacity style={styles.loginWrapper} onPress={() => Navigation.navigate('Login')}>
+                    <Text style={{
+                        textAlign: 'center', color
+                            : "blue", fontSize: 18, fontWeight: '700'
+                    }}>Login</Text>
+                </TouchableOpacity>
 
             </View>
         </View>
@@ -77,6 +87,9 @@ const styles = StyleSheet.create({
         paddingRight: 20,
         paddingTop: 100,
 
+    },
+    headerTitle: {
+        paddingBottom: 10
     },
 
     emailinputWrapper: {
@@ -96,16 +109,33 @@ const styles = StyleSheet.create({
         gap: 20,
         paddingTop: 30
     },
+
     btnWrapper: {
         paddingTop: 90,
         paddingBottom: 20
     },
+
     creteAcntBtn: {
         borderRadius: 8,
         paddingVertical: 14,
         paddingHorizontal: 110,
         alignSelf: 'center',
-        backgroundColor: '#2e7df3'
+        backgroundColor: 'blue'
     },
-    txt: { color: 'white' }
+
+    txt: {
+        color: 'white',
+        fontSize: 17
+    },
+
+    loginWrapper: {
+        paddingTop: 30
+    },
+
+    signUpTxt: {
+        fontSize: 25,
+        fontWeight: 600,
+        color: 'blue',
+        textAlign: 'center'
+    }
 })  

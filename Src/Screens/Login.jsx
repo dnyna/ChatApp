@@ -4,11 +4,11 @@ import { useNavigation } from '@react-navigation/native'
 const Login = () => {
     const Navigation = useNavigation()
 
-    const Img = require('./Assets/loginWithGoogle.png')
+    const Img = require('../Assets/loginWithGoogle.png')
     return (
         <View style={styles.container}>
-            <View style={{ paddingLeft: 125, }}>
-                <Text style={{ fontSize: 20, fontWeight: 600 }}>Login</Text>
+            <View>
+                <Text style={styles.loginTitleTxt}>Login</Text>
             </View>
 
             <View style={styles.emailinputWrapper}>
@@ -25,13 +25,13 @@ const Login = () => {
             </View>
 
             <View style={styles.btnWrapper}>
-                <TouchableOpacity style={styles.LoginBtn} onPress={() => Navigation.navigate()}>
+                <TouchableOpacity style={styles.LoginBtn} onPress={() => Navigation.navigate('ChatList')}>
                     <Text style={styles.txt}>Login</Text>
                 </TouchableOpacity>
             </View>
 
-            <View style={{ paddingBottom: 40, alignSelf: 'center', paddingTop: 110 }}>
-                <Text>
+            <View style={{ paddingBottom: 40, paddingTop: 110 }}>
+                <Text style={styles.loginWithTxt}>
                     Or Login with.
                 </Text>
             </View>
@@ -51,6 +51,13 @@ const styles = StyleSheet.create({
         paddingRight: 20,
         paddingTop: 100,
 
+    },
+
+    loginTitleTxt: {
+        fontSize: 25,
+        fontWeight: 600,
+        color: 'blue',
+        textAlign: 'center'
     },
 
     emailinputWrapper: {
@@ -85,16 +92,21 @@ const styles = StyleSheet.create({
         paddingVertical: 14,
         paddingHorizontal: 140,
         alignSelf: 'center',
-        backgroundColor: '#2e7df3'
+        backgroundColor: 'blue'
     },
     txt: {
         color: 'white'
     },
     google: {
-        paddingLeft: 10
+        alignSelf: 'center'
     },
     img: {
         height: 40,
         width: 300
+    },
+    loginWithTxt: {
+        textAlign: 'center',
+        fontSize: 17,
+        fontWeight: '600'
     }
 })  
