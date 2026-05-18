@@ -1,10 +1,40 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Alert } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
+import { getAuth, signInWithEmailAndPassword } from '@react-native-firebase/auth';
+import { useState } from 'react'
 const Login = () => {
     const Navigation = useNavigation()
-
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     const Img = require('../Assets/loginWithGoogle.png')
+
+    const LoginUser = () => {
+        if (!email || !password) {
+            Alert.alert('error', 'please fill all filds')
+            return
+        }
+
+        signInWithEmailAndPassword(getAuth(), email, password)
+            .then(() => {
+                console.log('login succees')
+                Navigation.navigate('MainTab')
+            })
+            .catch(error => {
+                if (error.code === 'auth/user-not-found') {
+                    Alert.alert('error', 'user not registered')
+                }
+                else if (error.code === 'auth/auth/wrong-password') {
+                    Alert.alert('error', 'wrong password')
+                }
+                else if (error.code === 'auth/auth/wrong-email') {
+                    Alert.alert('error', 'wrog email')
+                }
+                else {
+                    Alert.alert('error', error.message)
+                }
+            })
+    }
     return (
         <View style={styles.container}>
             <View>
@@ -15,17 +45,21 @@ const Login = () => {
                 <Text style={styles.txts}>E-mail</Text>
                 <TextInput style={styles.input}
                     placeholder='please Enter you email...'
-                    placeholderTextColor={'grey'} />
+                    placeholderTextColor={'grey'}
+                    value={email}
+                    onChangeText={text => setEmail(text)} />
             </View>
             <View style={styles.passwordinputWrapper}>
                 <Text style={styles.txts}>Password</Text>
                 <TextInput style={styles.input}
                     placeholder='please Enter you email...'
-                    placeholderTextColor={'grey'} />
+                    placeholderTextColor={'grey'}
+                    value={password}
+                    onChangeText={text => setPassword(text)} />
             </View>
 
             <View style={styles.btnWrapper}>
-                <TouchableOpacity style={styles.LoginBtn} onPress={() => Navigation.navigate('ChatList')}>
+                <TouchableOpacity style={styles.LoginBtn} onPress={LoginUser}>
                     <Text style={styles.txt}>Login</Text>
                 </TouchableOpacity>
             </View>

@@ -3,6 +3,7 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { getAuth, createUserWithEmailAndPassword } from '@react-native-firebase/auth';
 import { useState } from 'react';
+import { collection, firestore } from '@react-native-firebase/firestore';
 const SignUp = () => {
     const Navigation = useNavigation()
     const [email, setEmail] = useState('')
@@ -10,20 +11,25 @@ const SignUp = () => {
 
     const createUser = () => {
         createUserWithEmailAndPassword(getAuth(), email, password)
-            .then(() => {
-                console.log('User account created & signed in!');
+            .then(async userCredential => {
+
+                const user = userCredential.user
+                await firestore()
+                collection('users')
+                    .doc(user.uid)
+                set({
+                    ud: user.uid,
+                    email: email,
+                    createdAt: firestore.fieldValue.serverTimestamp()
+                })
+                console.log('userAccount got created')
+                Navigation.navigate('ChatList')
             })
             .catch(error => {
-                if (error.code === 'auth/email-already-in-use') {
-                    console.log('That email address is already in use!');
-                }
+                console.log(error)
+            }
+            )
 
-                if (error.code === 'auth/invalid-email') {
-                    console.log('That email address is invalid!');
-                }
-
-                console.error(error);
-            });
     }
     return (
         <View style={styles.container}>
@@ -58,7 +64,7 @@ const SignUp = () => {
                     placeholderTextColor={'grey'} />
             </View>
             <View style={styles.btnWrapper}>
-                <TouchableOpacity style={styles.creteAcntBtn} onPress={() => { createUser('Login') }}>
+                <TouchableOpacity style={styles.creteAcntBtn} onPress={createUser}>
                     <Text style={styles.txt}>Create account</Text>
                 </TouchableOpacity>
             </View>
@@ -102,6 +108,7 @@ const styles = StyleSheet.create({
         paddingRight: 120,
         borderRadius: 8,
         paddingLeft: 20,
+        color: 'black'
 
     },
 
