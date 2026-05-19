@@ -1,26 +1,25 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, FlatList, TextInput } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import IonIcons from 'react-native-vector-icons/Ionicons'
-import { FlatList, TextInput } from 'react-native-gesture-handler'
-import { firestore } from '@react-native-firebase/firestore'
+import firestore from '@react-native-firebase/firestore'
 const ChatList = () => {
   const [users, setUsers] = useState([])
   useEffect(() => {
-    const subsScriber = firestore()
+    const subscriber = firestore()
       .collection('users')
       .onSnapshot(querySnapshot => {
         const userData = []
         querySnapshot.forEach(documentSnapshot => {
           userData.push({
+            id: documentSnapshot.id,
             ...documentSnapshot.data(),
-            id: documentSnapshot.id
           })
+          console.log(documentSnapshot.data())
         })
         setUsers(userData)
       })
-    return () => subsScriber()
+    return () => subscriber()
   }, [])
-
 
   const RenderItems = ({ item }) => (
     <View style={{ paddingTop: 20 }}>
@@ -44,7 +43,7 @@ const ChatList = () => {
           placeholder='search'
           placeholderTextColor={'grey'}
           style={styles.searchInput} />
-        <IonIcons name='search-outline' size={30} style={styles.searchIcon}></IonIcons>
+        <IonIcons name='search-outline' size={25} style={styles.searchIcon} color={'grey'}></IonIcons>
         <View>
           <FlatList
             data={users}
@@ -74,14 +73,14 @@ const styles = StyleSheet.create({
   searchInput: {
     backgroundColor: 'white',
     borderRadius: 20,
-    paddingLeft: 60,
+    paddingLeft: 50,
     color: 'black', elevation: 1
   },
 
   searchIcon: {
     position: 'absolute',
-    top: 19,
-    left: 35
+    top: 28,
+    left: 30
   },
 
   searchContainer: {

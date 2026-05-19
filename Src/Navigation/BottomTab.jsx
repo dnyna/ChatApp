@@ -10,7 +10,7 @@ const BottomTab = () => {
             <Tab.Screen name="ChatList" component={ChatList}
                 options={{
                     tabBarIcon: ({ size, color }) => {
-                        return (<IonIcons name="people-crcle-outline" size={size} color={color} ></IonIcons>)
+                        return (<IonIcons name="people-outline" size={size} color={color} ></IonIcons>)
 
                     }
                 }}
