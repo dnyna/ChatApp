@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ChatList from '../Screens/ChatList';
-import Chats from '../Screens/Chats'
+import Setting from '../Screens/Setting'
 import IonIcons from 'react-native-vector-icons/Ionicons'
 const Tab = createBottomTabNavigator();
 
@@ -11,17 +11,15 @@ const BottomTab = () => {
                 options={{
                     tabBarIcon: ({ size, color }) => {
                         return (<IonIcons name="people-outline" size={size} color={color} ></IonIcons>)
-
                     }
                 }}
 
 
             />
-            <Tab.Screen name="Chats" component={Chats}
+            <Tab.Screen name="Setting" component={Setting}
                 options={{
                     tabBarIcon: ({ size, color }) => {
-                        return (<IonIcons name="chatbubble-outline" size={size} color={color}></IonIcons>)
-
+                        return (<IonIcons name="settings" size={size} color={color}></IonIcons>)
                     }
                 }} />
         </Tab.Navigator>

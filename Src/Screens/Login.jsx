@@ -3,13 +3,16 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { getAuth, signInWithEmailAndPassword } from '@react-native-firebase/auth';
 import { useState } from 'react'
+import Firestore from '@react-native-firebase/firestore';
 const Login = () => {
     const Navigation = useNavigation()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const Img = require('../Assets/loginWithGoogle.png')
 
     const LoginUser = () => {
+        Firestore().collection('users').where('email', '==', email).get().then(res => {
+            console.log(res)
+        })
         if (!email || !password) {
             Alert.alert('error', 'please fill all filds')
             return
@@ -31,8 +34,9 @@ const Login = () => {
                     Alert.alert('error', 'wrog email')
                 }
                 else {
-                    Alert.alert('error', error.message)
+                    Alert.alert('user not found')
                 }
+
             })
     }
     return (
@@ -63,15 +67,20 @@ const Login = () => {
                     <Text style={styles.txt}>Login</Text>
                 </TouchableOpacity>
             </View>
+            <View style={styles.footerWrapper}>
 
-            <View style={{ paddingBottom: 40, paddingTop: 110 }}>
-                <Text style={styles.loginWithTxt}>
-                    Or Login with.
+                <Text>
+                    Don't have an account?
                 </Text>
+                <TouchableOpacity style={styles.loginWrapper} onPress={() => Navigation.navigate('SignUp')}>
+                    <Text style={{
+                        fontSize: 14, fontWeight: '700'
+                    }}>   SignUp</Text>
+                </TouchableOpacity>
+
             </View>
-            <TouchableOpacity style={styles.google}>
-                <Image source={Img} style={styles.img} />
-            </TouchableOpacity>
+
+
 
         </View>
     )
@@ -115,32 +124,30 @@ const styles = StyleSheet.create({
 
     passwordinputWrapper: {
         gap: 20,
-        paddingTop: 30
+        paddingTop: 20
     },
     btnWrapper: {
         paddingTop: 90,
         paddingBottom: 20
     },
+
     LoginBtn: {
-        borderRadius: 8,
+        borderRadius: 20,
         paddingVertical: 14,
         paddingHorizontal: 140,
         alignSelf: 'center',
         backgroundColor: 'blue'
     },
+
     txt: {
         color: 'white'
     },
-    google: {
-        alignSelf: 'center'
+
+    footerWrapper: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center'
     },
-    img: {
-        height: 40,
-        width: 300
-    },
-    loginWithTxt: {
-        textAlign: 'center',
-        fontSize: 17,
-        fontWeight: '600'
-    }
+
+
 })  

@@ -1,32 +1,42 @@
-import { StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, TextInput, View, TouchableOpacity, Alert } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { getAuth, createUserWithEmailAndPassword } from '@react-native-firebase/auth';
 import { useState } from 'react';
-import { collection, firestore } from '@react-native-firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
 const SignUp = () => {
     const Navigation = useNavigation()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [confPassword, setConfPassword] = useState('')
 
-    const createUser = () => {
+
+    const createUser = async () => {
+        if (password !== confPassword) {
+            Alert.alert('password is not matching')
+        }
         createUserWithEmailAndPassword(getAuth(), email, password)
             .then(async userCredential => {
 
                 const user = userCredential.user
                 await firestore()
-                collection('users')
+                    .collection('users')
                     .doc(user.uid)
-                set({
-                    ud: user.uid,
-                    email: email,
-                    createdAt: firestore.fieldValue.serverTimestamp()
-                })
-                console.log('userAccount got created')
-                Navigation.navigate('ChatList')
+                    .set({
+
+                        ud: user.uid,
+                        email: email,
+                        createdAt: firestore.FieldValue.serverTimestamp()
+                    }).then(res => {
+                        console.log('userAccount got created')
+
+                    })
+                Navigation.navigate('Login')
+
             })
             .catch(error => {
                 console.log(error)
+                Alert.alert(' user not found')
             }
             )
 
@@ -61,23 +71,24 @@ const SignUp = () => {
                 <Text>Confirm Password</Text>
                 <TextInput style={styles.input}
                     placeholder='please Enter you email'
-                    placeholderTextColor={'grey'} />
+                    placeholderTextColor={'grey'}
+                    value={confPassword}
+                    onChangeText={text => setConfPassword(text)} />
             </View>
             <View style={styles.btnWrapper}>
                 <TouchableOpacity style={styles.creteAcntBtn} onPress={createUser}>
                     <Text style={styles.txt}>Create account</Text>
                 </TouchableOpacity>
             </View>
-            <View style={{ paddingBottom: 135 }}>
+            <View style={styles.footerWrapper}>
 
                 <Text>
-                    By continuing, you agree to our Terms of Service and Privacy Policy.
+                    Already have an account?
                 </Text>
                 <TouchableOpacity style={styles.loginWrapper} onPress={() => Navigation.navigate('Login')}>
                     <Text style={{
-                        textAlign: 'center', color
-                            : "blue", fontSize: 18, fontWeight: '700'
-                    }}>Login</Text>
+                        fontSize: 14, fontWeight: '700'
+                    }}>   Login</Text>
                 </TouchableOpacity>
 
             </View>
@@ -123,9 +134,10 @@ const styles = StyleSheet.create({
     },
 
     creteAcntBtn: {
-        borderRadius: 8,
+        borderRadius: 20,
         paddingVertical: 14,
-        paddingHorizontal: 110,
+        paddingLeft: 100,
+        paddingRight: 100,
         alignSelf: 'center',
         backgroundColor: 'blue'
     },
@@ -135,8 +147,10 @@ const styles = StyleSheet.create({
         fontSize: 17
     },
 
-    loginWrapper: {
-        paddingTop: 30
+    footerWrapper: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center'
     },
 
     signUpTxt: {

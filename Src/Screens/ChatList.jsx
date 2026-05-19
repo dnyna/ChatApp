@@ -1,9 +1,12 @@
-import { StyleSheet, Text, View, FlatList, TextInput } from 'react-native'
+import { StyleSheet, Text, View, FlatList, TextInput, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import IonIcons from 'react-native-vector-icons/Ionicons'
-import firestore from '@react-native-firebase/firestore'
+import firestore, { Timestamp } from '@react-native-firebase/firestore'
+import { useNavigation } from '@react-navigation/native'
+import { timestampAdd } from '@react-native-firebase/app/dist/module/internal/web/firebaseFirestorePipelines'
 const ChatList = () => {
   const [users, setUsers] = useState([])
+  const Navigation = useNavigation()
   useEffect(() => {
     const subscriber = firestore()
       .collection('users')
@@ -21,23 +24,47 @@ const ChatList = () => {
     return () => subscriber()
   }, [])
 
+  //last seen
+
+  // const LastSeen = timestamp=>{
+  //   if(!Timestamp){
+  //     return('offline')
+  //   }
+
+  //   const date= timestamp.toDate()
+    
+  //   return `last seen $
+  //   {date.toLocaleTimeString([],{
+  //   hour:'2-digit'
+  //   minute:'2-digit'
+  //   })}`
+  // }
+
   const RenderItems = ({ item }) => (
     <View style={{ paddingTop: 20 }}>
       <View style={{
-        borderWidth: 1,
         borderColor: 'black',
-        height: 80,
-        width: '80%'
+        paddingVertical
+          : 20,
+        borderRadius: 10,
+        backgroundColor: 'white'
+
       }}>
-        <Text>{item.email}</Text>
-        <Text>Last seen</Text>
+        <TouchableOpacity onPress={() => Navigation.navigate('Chats')}>
+          <Text style={{ paddingLeft: 20 }}>{item.email}</Text>
+          {/* <Text>{LastSeen.date}</Te
+          xt> */}
+        </TouchableOpacity>
+
       </View>
 
     </View>
   )
   return (
     <View style={styles.container}>
-      <IonIcons name='add-outline' style={styles.addIcon} size={20} />
+      <TouchableOpacity onPress={()=>Navigation.navigate('SignUp')}style={styles.addIcon}>
+        <IonIcons name='add-outline'  size={20} />
+      </TouchableOpacity>
       <View style={styles.searchContainer}>
         <TextInput
           placeholder='search'
