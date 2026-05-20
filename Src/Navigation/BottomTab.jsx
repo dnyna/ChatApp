@@ -2,13 +2,20 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ChatList from '../Screens/ChatList';
 import Setting from '../Screens/Setting'
 import IonIcons from 'react-native-vector-icons/Ionicons'
+import { Background } from 'react-native-keyboard-controller/lib/typescript/components/KeyboardToolbar/compound/components';
 const Tab = createBottomTabNavigator();
 
 const BottomTab = () => {
     return (
-        <Tab.Navigator>
-            <Tab.Screen name="ChatList" component={ChatList}
+        <Tab.Navigator screenOptions={{
+            headerStyle: {
+                backgroundColor: 'transparent',
+                elevation: 0
+            }
+        }}>
+            <Tab.Screen name="contacts" component={ChatList}
                 options={{
+
                     tabBarIcon: ({ size, color }) => {
                         return (<IonIcons name="people-outline" size={size} color={color} ></IonIcons>)
                     }
@@ -16,7 +23,7 @@ const BottomTab = () => {
 
 
             />
-            <Tab.Screen name="Setting" component={Setting}
+            <Tab.Screen name="More" component={Setting}
                 options={{
                     tabBarIcon: ({ size, color }) => {
                         return (<IonIcons name="settings" size={size} color={color}></IonIcons>)

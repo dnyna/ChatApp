@@ -1,69 +1,66 @@
-import { StyleSheet, Text, View, FlatList, TextInput, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, FlatList, TextInput, TouchableOpacity, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import IonIcons from 'react-native-vector-icons/Ionicons'
-import firestore, { Timestamp } from '@react-native-firebase/firestore'
+import firestore, { DocumentSnapshot, } from '@react-native-firebase/firestore'
 import { useNavigation } from '@react-navigation/native'
-import { timestampAdd } from '@react-native-firebase/app/dist/module/internal/web/firebaseFirestorePipelines'
+import auth from '@react-native-firebase/auth'
 const ChatList = () => {
   const [users, setUsers] = useState([])
   const Navigation = useNavigation()
   useEffect(() => {
+    const currentUser = auth().currentUser
     const subscriber = firestore()
       .collection('users')
       .onSnapshot(querySnapshot => {
         const userData = []
         querySnapshot.forEach(documentSnapshot => {
-          userData.push({
-            id: documentSnapshot.id,
-            ...documentSnapshot.data(),
-          })
+          const data = documentSnapshot.data()
+
           console.log(documentSnapshot.data())
+
+          ///skipping login user
+
+          if (data.email !== currentUser.email) {
+            userData.push({
+              id: documentSnapshot.id,
+              ...data,
+            })
+          }
         })
         setUsers(userData)
       })
     return () => subscriber()
   }, [])
 
-  //last seen
 
-  // const LastSeen = timestamp=>{
-  //   if(!Timestamp){
-  //     return('offline')
-  //   }
-
-  //   const date= timestamp.toDate()
-    
-  //   return `last seen $
-  //   {date.toLocaleTimeString([],{
-  //   hour:'2-digit'
-  //   minute:'2-digit'
-  //   })}`
-  // }
-
+  const Img = require('../Assets/avatar.png')
   const RenderItems = ({ item }) => (
-    <View style={{ paddingTop: 20 }}>
-      <View style={{
-        borderColor: 'black',
-        paddingVertical
-          : 20,
-        borderRadius: 10,
-        backgroundColor: 'white'
+    <TouchableOpacity onPress={() => Navigation.navigate('Chats', {recieverId:item.id, recieverEmail:item.email},)} style={{
+      paddingTop: 20, flexDirection: 'row',
+      borderColor: 'black',
+      paddingVertical: 20,
+      borderRadius: 10,
 
-      }}>
-        <TouchableOpacity onPress={() => Navigation.navigate('Chats')}>
-          <Text style={{ paddingLeft: 20 }}>{item.email}</Text>
+
+    }}>
+      <View>
+        <Image source={Img} style={styles.img} />
+      </View>
+      <View>
+        <View>
+          <Text style={{ paddingLeft: 20 }}>{item.name}</Text>
           {/* <Text>{LastSeen.date}</Te
           xt> */}
-        </TouchableOpacity>
+        </View>
 
       </View>
 
-    </View>
+    </TouchableOpacity >
   )
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={()=>Navigation.navigate('SignUp')}style={styles.addIcon}>
-        <IonIcons name='add-outline'  size={20} />
+      <TouchableOpacity onPress={() => Navigation.navigate('SignUp')} style={styles.addIcon}>
+        <IonIcons name='add-outline' size={20} />
       </TouchableOpacity>
       <View style={styles.searchContainer}>
         <TextInput
@@ -87,7 +84,9 @@ export default ChatList
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    paddingBottom: 50,
+    backgroundColor: 'white'
   },
 
   addIcon: {
@@ -112,7 +111,12 @@ const styles = StyleSheet.create({
 
   searchContainer: {
     paddingHorizontal: 15,
-    paddingTop: 20
+    paddingTop: 20,
+    paddingBottom: 20
+  },
+  img: {
+    height: 30,
+    width: 30
   }
 
 })

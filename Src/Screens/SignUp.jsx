@@ -4,8 +4,10 @@ import { useNavigation } from '@react-navigation/native'
 import { getAuth, createUserWithEmailAndPassword } from '@react-native-firebase/auth';
 import { useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth'
 const SignUp = () => {
     const Navigation = useNavigation()
+    const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confPassword, setConfPassword] = useState('')
@@ -26,6 +28,7 @@ const SignUp = () => {
 
                         ud: user.uid,
                         email: email,
+                        name:name,
                         createdAt: firestore.FieldValue.serverTimestamp()
                     }).then(res => {
                         console.log('userAccount got created')
@@ -49,6 +52,14 @@ const SignUp = () => {
             <View>
                 <Text style={{ textAlign: 'center' }}>SignUp to start chat</Text>
 
+            </View>
+            <View style={styles.emailinputWrapper}>
+                <Text>name</Text>
+                <TextInput style={styles.input}
+                    placeholder='please Enter you email'
+                    placeholderTextColor={'grey'}
+                    value={name}
+                    onChangeText={text => setName(text)} />
             </View>
 
             <View style={styles.emailinputWrapper}>
@@ -111,7 +122,7 @@ const styles = StyleSheet.create({
 
     emailinputWrapper: {
         gap: 20,
-        paddingTop: 40
+        paddingTop: 10
     },
 
     input: {
