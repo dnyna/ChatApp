@@ -1,6 +1,11 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
 import IonIcons from 'react-native-vector-icons/Ionicons'
+import Firestore from '@react-native-firebase/firestore'
+import Padding from '../styles/Padding'
+import Sizes from '../styles/Sizes'
+import Margins from '../styles/Margins'
+import Gaps from '../styles/Gaps'
 const Setting = () => {
   const Img = require('../Assets/avatar.png')
 
@@ -8,19 +13,19 @@ const Setting = () => {
     <View style={styles.mainContainer}>
       <View style={styles.profileView}>
         <Image source={Img} style={styles.img} />
-        <IonIcons name="chevron-forward-outline" size={22} style={{ position: "absolute", top: 28, right: 10 }} />
+        <IonIcons name="chevron-forward-outline" size={22} style={{ position: "absolute", top: Margins.TwntET, right: Margins.small }} />
 
       </View>
       <View>
         <View style={styles.accountContainer}>
           <IonIcons name='person-outline' size={22} />
           <Text style={styles.actTxt}>Account</Text>
-          <IonIcons name="chevron-forward-outline" size={22} style={{ position: "absolute", top: 15, right: 10 }} />
+          <IonIcons name="chevron-forward-outline" size={22} style={{ position: "absolute", top: Margins.inBetween, right: Margins.small }} />
         </View>
         <View style={styles.chatContainer}>
           <IonIcons name='chatbubble-outline' size={22} />
           <Text style={styles.chatTxt}>Chats</Text>
-          <IonIcons name="chevron-forward-outline" size={22} style={{ position: "absolute", top: 28, right: 10 }} />
+          <IonIcons name="chevron-forward-outline" size={22} style={{ position: "absolute", top: Margins.TwntET, right: Margins.small }} />
 
         </View>
       </View>
@@ -29,40 +34,40 @@ const Setting = () => {
         <View style={styles.appearanceView}>
           <IonIcons name='sunny-outline' size={22} />
           <Text style={styles.chatTxt}>Appereance</Text>
-          <IonIcons name="chevron-forward-outline" size={22} style={{ position: "absolute", top: 30, right: 10 }} />
+          <IonIcons name="chevron-forward-outline" size={22} style={{ position: "absolute", top: Margins.Thity, right: Margins.small }} />
 
         </View>
         <View style={styles.appearanceView}>
-          <IonIcons name='sunny-outline' size={22} />
+          <IonIcons name='notifications-outline' size={22} />
           <Text style={styles.chatTxt}>Notification</Text>
-          <IonIcons name="chevron-forward-outline" size={22} style={{ position: "absolute", top: 28, right: 10 }} />
+          <IonIcons name="chevron-forward-outline" size={22} style={{ position: "absolute", top: Margins.TwntET, right: Margins.small }} />
 
         </View>
         <View style={styles.appearanceView}>
-          <IonIcons name='sunny-outline' size={22} />
+          <IonIcons name='document-lock-outline' size={22} />
           <Text style={styles.chatTxt}>Privacy</Text>
-          <IonIcons name="chevron-forward-outline" size={22} style={{ position: "absolute", top: 28, right: 10 }} />
+          <IonIcons name="chevron-forward-outline" size={22} style={{ position: "absolute", top: Margins.TwntET, right: Margins.small }} />
 
         </View>
         <View style={styles.appearanceView}>
-          <IonIcons name='sunny-outline' size={22} />
+          <IonIcons name='folder-outline' size={22} />
           <Text style={styles.chatTxt}>Data Usage</Text>
-          <IonIcons name="chevron-forward-outline" size={22} style={{ position: "absolute", top: 28, right: 10 }} />
+          <IonIcons name="chevron-forward-outline" size={22} style={{ position: "absolute", top: Margins.TwntET, right: Margins.small }} />
 
         </View>
       </View>
 
 
       <View style={styles.appearanceView}>
-        <IonIcons name='sunny-outline' size={22} />
+        <IonIcons name="help-circle-outline" size={22} />
         <Text style={styles.chatTxt}>Help</Text>
-        <IonIcons name="chevron-forward-outline" size={22} style={{ position: "absolute", top: 30, right: 10 }} />
+        <IonIcons name="chevron-forward-outline" size={22} style={{ position: "absolute", top: Margins.Thity, right: Margins.small }} />
 
       </View>
       <View style={styles.appearanceView}>
-        <IonIcons name='sunny-outline' size={22} />
+        <IonIcons name='mail-outline' size={22} />
         <Text style={styles.chatTxt}>Invite Your Friends</Text>
-        <IonIcons name="chevron-forward-outline" size={22} style={{ position: "absolute", top: 28, right: 10 }} />
+        <IonIcons name="chevron-forward-outline" size={22} style={{ position: "absolute", top: Margins.TwntET, right: Margins.small }} />
 
       </View>
 
@@ -75,46 +80,46 @@ export default Setting
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    paddingHorizontal: 15,
+    paddingHorizontal: Padding.middle,
     backgroundColor: 'white'
   },
   profileView: {
     flexDirection: 'row',
-    paddingTop: 20,
-    paddingBottom: 20,
+    paddingTop: Padding.small,
+    paddingBottom: Padding.small,
   },
   img: {
-    height: 45,
-    width: 45
+    height: Sizes.XXL,
+    width: Sizes.XXL
   },
   accountContainer: {
     flexDirection: 'row',
-    gap: 25,
-    paddingTop: 15
+    gap: Gaps.Middle,
+    paddingTop: Padding.smaller
 
   },
   actTxt: {
-    fontSize: 16,
+    fontSize: Sizes.smaller,
     fontWeight: 600
   },
   chatContainer: {
     flexDirection: 'row',
-    gap: 25,
-    paddingTop: 30
+    gap: Gaps.Middle,
+    paddingTop: Padding.middle
   },
   chatTxt: {
-    fontSize: 16,
+    fontSize: Sizes.smaller,
     fontWeight: 600
   },
   SecondContainer: {
-    paddingTop: 40,
-    paddingBottom: 20,
+    paddingTop: Padding.doubleOfSmall,
+    paddingBottom: Padding.small,
     borderBottomWidth: 0.5,
     borderColor: '#EDEDED'
   },
   appearanceView: {
     flexDirection: 'row',
-    gap: 25,
-    paddingTop: 30
+    gap: Gaps.Middle,
+    paddingTop: Padding.middle
   }
 })

@@ -4,6 +4,9 @@ import IonIcons from 'react-native-vector-icons/Ionicons'
 import firestore, { DocumentSnapshot, } from '@react-native-firebase/firestore'
 import { useNavigation } from '@react-navigation/native'
 import auth from '@react-native-firebase/auth'
+import Padding from '../styles/Padding'
+import Sizes from '../styles/Sizes'
+import Margins from '../styles/Margins'
 const ChatList = () => {
   const [users, setUsers] = useState([])
   const Navigation = useNavigation()
@@ -15,7 +18,7 @@ const ChatList = () => {
         const userData = []
         querySnapshot.forEach(documentSnapshot => {
           const data = documentSnapshot.data()
-
+   
           console.log(documentSnapshot.data())
 
           ///skipping login user
@@ -35,10 +38,10 @@ const ChatList = () => {
 
   const Img = require('../Assets/avatar.png')
   const RenderItems = ({ item }) => (
-    <TouchableOpacity onPress={() => Navigation.navigate('Chats', {recieverId:item.id, recieverEmail:item.email},)} style={{
-      paddingTop: 20, flexDirection: 'row',
+    <TouchableOpacity onPress={() => Navigation.navigate('Chats', { recieverId: item.uid, recieverEmail: item.email },)} style={{
+      paddingTop: Padding.small, flexDirection: 'row',
       borderColor: 'black',
-      paddingVertical: 20,
+      paddingVertical: Padding.small,
       borderRadius: 10,
 
 
@@ -48,7 +51,7 @@ const ChatList = () => {
       </View>
       <View>
         <View>
-          <Text style={{ paddingLeft: 20 }}>{item.name}</Text>
+          <Text style={{ paddingLeft: Padding.small }}>{item.name}</Text>
           {/* <Text>{LastSeen.date}</Te
           xt> */}
         </View>
@@ -85,38 +88,39 @@ export default ChatList
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: 50,
+    paddingBottom: Padding.halfCentury,
     backgroundColor: 'white'
   },
 
   addIcon: {
     position: 'absolute',
-    right: 20,
-    top: -40,
+    right: Margins.middle,
+    top: -Margins.Fot,
     zIndex: 1
   },
 
   searchInput: {
     backgroundColor: 'white',
     borderRadius: 20,
-    paddingLeft: 50,
-    color: 'black', elevation: 1
+    paddingLeft: Padding.halfCentury,
+    color: 'black',
+    elevation: 1
   },
 
   searchIcon: {
     position: 'absolute',
-    top: 28,
-    left: 30
+    top: Margins.TwntET,
+    left: Margins.Thity
   },
 
   searchContainer: {
-    paddingHorizontal: 15,
-    paddingTop: 20,
-    paddingBottom: 20
+    paddingHorizontal: Padding.smaller,
+    paddingTop: Padding.small,
+    paddingBottom: Padding.small
   },
   img: {
-    height: 30,
-    width: 30
+    height: Sizes.large,
+    width: Sizes.large
   }
 
 })

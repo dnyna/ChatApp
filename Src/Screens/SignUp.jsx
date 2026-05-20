@@ -5,6 +5,8 @@ import { getAuth, createUserWithEmailAndPassword } from '@react-native-firebase/
 import { useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth'
+import Padding  from '../styles/Padding'
+import Sizes from '../styles/Sizes';
 const SignUp = () => {
     const Navigation = useNavigation()
     const [name, setName] = useState('')
@@ -111,51 +113,51 @@ export default SignUp
 
 const styles = StyleSheet.create({
     container: {
-        paddingLeft: 20,
-        paddingRight: 20,
-        paddingTop: 100,
+        paddingLeft: Padding.small,
+        paddingRight: Padding.small,
+        paddingTop: Padding.century,
 
     },
     headerTitle: {
-        paddingBottom: 10
+        paddingBottom: Padding.TooSmalll
     },
 
     emailinputWrapper: {
         gap: 20,
-        paddingTop: 10
+        paddingTop:Padding.TooSmalll
     },
 
     input: {
-        borderWidth: 1,
-        paddingRight: 120,
+        borderWidth: Sizes.smallestOne,
+        paddingRight: Padding.middleFourth,
         borderRadius: 8,
-        paddingLeft: 20,
+        paddingLeft: Padding.small,
         color: 'black'
 
     },
 
     passwordinputWrapper: {
         gap: 20,
-        paddingTop: 30
+        paddingTop: Padding.middle
     },
 
     btnWrapper: {
-        paddingTop: 90,
-        paddingBottom: 20
+        paddingTop: Padding.middleTriple,
+        paddingBottom: Padding.small
     },
 
     creteAcntBtn: {
         borderRadius: 20,
-        paddingVertical: 14,
-        paddingLeft: 100,
-        paddingRight: 100,
+        paddingVertical: Padding.smaller,
+        paddingLeft: Padding.century,
+        paddingRight: Padding.century,
         alignSelf: 'center',
         backgroundColor: 'blue'
     },
 
     txt: {
         color: 'white',
-        fontSize: 17
+        fontSize: Sizes.SevnTn
     },
 
     footerWrapper: {
@@ -165,7 +167,7 @@ const styles = StyleSheet.create({
     },
 
     signUpTxt: {
-        fontSize: 25,
+        fontSize: Sizes.small,
         fontWeight: 600,
         color: 'blue',
         textAlign: 'center'

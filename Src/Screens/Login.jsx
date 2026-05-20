@@ -4,6 +4,9 @@ import { useNavigation } from '@react-navigation/native'
 import { getAuth, signInWithEmailAndPassword } from '@react-native-firebase/auth';
 import { useState } from 'react'
 import Firestore from '@react-native-firebase/firestore';
+import Padding from '../styles/Padding';
+import Sizes from '../styles/Sizes';
+import Gaps from '../styles/Gaps';
 const Login = () => {
     const Navigation = useNavigation()
     const [email, setEmail] = useState('')
@@ -90,51 +93,50 @@ export default Login
 
 const styles = StyleSheet.create({
     container: {
-        paddingLeft: 20,
-        paddingRight: 20,
-        paddingTop: 100,
-
+        paddingLeft: Padding.small,
+        paddingRight: Padding.small,
+        paddingTop: Padding.century,
     },
 
     loginTitleTxt: {
-        fontSize: 25,
+        fontSize: Sizes.small,
         fontWeight: 600,
         color: 'blue',
         textAlign: 'center'
     },
 
     emailinputWrapper: {
-        gap: 20,
-        paddingTop: 40
+        gap: Gaps.small,
+        paddingTop: Padding.doubleOfSmall
     },
 
     txts: {
-        fontSize: 16
+        fontSize: Sizes.SevnTn
     },
 
     input: {
-        borderWidth: 1,
-        paddingRight: 120,
+        borderWidth: Sizes.smallestOne,
+        paddingRight: Padding.middleFourth,
         borderRadius: 12,
-        paddingLeft: 20,
-        paddingTop: 15,
-        paddingBottom: 15
+        paddingLeft: Padding.small,
+        paddingTop: Padding.smaller,
+        paddingBottom: Padding.smaller
 
     },
 
     passwordinputWrapper: {
-        gap: 20,
-        paddingTop: 20
+        gap: Gaps.small,
+        paddingTop: Padding.small
     },
     btnWrapper: {
-        paddingTop: 90,
-        paddingBottom: 20
+        paddingTop: Padding.middleTriple,
+        paddingBottom: Padding.small
     },
 
     LoginBtn: {
         borderRadius: 20,
-        paddingVertical: 14,
-        paddingHorizontal: 140,
+        paddingVertical: Padding.smaller,
+        paddingHorizontal: Padding.middleFourthSmall,
         alignSelf: 'center',
         backgroundColor: 'blue'
     },

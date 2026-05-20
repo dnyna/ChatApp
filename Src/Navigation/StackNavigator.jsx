@@ -14,9 +14,11 @@ const StackNavigator = () => {
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name='MainTab' component={BottomTab} />
-            <Stack.Screen name="Chats" component={Chats} />
+            <Stack.Screen name="Chats" component={Chats}
+            
+            />
 
         </Stack.Navigator>
     );
 }
-export default StackNavigator
+export default StackNavigator 

@@ -3,8 +3,9 @@ import React from 'react'
 // import IonIcons from 'react-native-vector-icons/Ionicons'
 import { GiftedChat } from 'react-native-gifted-chat'
 import { useState, useEffect, useCallback } from 'react'
-import { Firestore, onSnapshot } from '@react-native-firebase/firestore'
-import auth from'@react-native-firebase/auth'
+import Firestore from '@react-native-firebase/firestore'
+import { onSnapshot } from '@react-native-firebase/firestore'
+import auth from '@react-native-firebase/auth'
 const Chats = ({ route }) => {
   const { recieverId } = route.params
   const CurrentUser = auth().currentUser
@@ -25,16 +26,16 @@ const Chats = ({ route }) => {
       .doc(chatId)
       .collection('messages')
       .orderBy('createdAt', 'desc')
-    onSnapshot(snapshot => {
-      const allMessages = snapshot.docs.map(item => {
-        const data = item.data()
+    onSnapshot(squerySapshot => {
+      const allMessages = squerySapshot.docs.map(doc => {
+        const data = doc.data()
         return {
-          ...data, createdAt: data.createdAt.toDate(),
+          ...data, createdAt: data.createdAt.toDate()
         }
       })
       setMessages(allMessages)
     })
-    return () => unsubscribe()
+    return unsubscribe
 
   }, [])
 
@@ -48,16 +49,13 @@ const Chats = ({ route }) => {
       createdAt: new Date(),
     }
     setMessages(previousMessages =>
-      GiftedChat.append(previousMessages, myMessage),
+      GiftedChat.append(previousMessages, [myMessage]),
     )
     Firestore()
       .collection('chats')
       .doc(chatId)
       .collection('messages')
-      .add({
-        ...myMessage,
-        createdat: Firestore.FieldValue.serverTimeStamp(),
-      })
+      .add(myMessage)
   }, [])
   return (
     <View style={{ flex: 1 }}>

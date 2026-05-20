@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
+import Padding from '../styles/Padding'
+import Sizes from '../styles/Sizes'
 const GetStarted = () => {
     const Illustration = require('../Assets/Illustration.png')
     const Navigation = useNavigation()
@@ -24,31 +26,31 @@ export default GetStarted
 
 const styles = StyleSheet.create({
     imgConitainer: {
-        paddingTop: 135,
-        paddingLeft: 55,
-        paddingBottom: 32
+        paddingTop: Padding.middleFourthSmall,
+        paddingLeft: Padding.halfCenturyAndExtraSmall,
+        paddingBottom: Padding.middle
     },
 
     img: {
-        height: 271,
-        width: 262
+        height: Sizes.TSeOnTOn,
+        width: Sizes.ToSxTo
     },
 
     connectTxt: {
-        fontSize: 24,
+        fontSize: Sizes.small,
         fontWeight: 700,
         textAlign: 'center'
     },
 
     btnWrapper: {
-        paddingTop: 90,
-        paddingBottom: 20
+        paddingTop: Padding.middleTriple,
+        paddingBottom: Padding.small
     },
 
     LoginBtn: {
         borderRadius: 20,
-        paddingVertical: 20,
-        paddingHorizontal: 100,
+        paddingVertical: Padding.small,
+        paddingHorizontal: Padding.century,
         alignSelf: 'center',
         backgroundColor: 'blue'
     },
