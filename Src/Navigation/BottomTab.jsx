@@ -9,8 +9,9 @@ const BottomTab = () => {
     return (
         <Tab.Navigator screenOptions={{
             headerStyle: {
-                backgroundColor: 'transparent',
-                elevation: 0
+                backgroundColor: '#67a1f9',
+                elevation: 0,
+                height: 80,
             }
         }}>
             <Tab.Screen name="contacts" component={ChatList}
@@ -25,9 +26,10 @@ const BottomTab = () => {
             />
             <Tab.Screen name="More" component={Setting}
                 options={{
+
                     tabBarIcon: ({ size, color }) => {
                         return (<IonIcons name="settings" size={size} color={color}></IonIcons>)
-                    }
+                    },
                 }} />
         </Tab.Navigator>
 

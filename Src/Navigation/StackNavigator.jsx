@@ -1,4 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack';
+import { View, Text } from 'react-native';
 import SignUp from '../Screens/SignUp'
 import Login from '../Screens/Login'
 import BottomTab from './BottomTab'
@@ -9,13 +10,36 @@ const Stack = createStackNavigator();
 const StackNavigator = () => {
     return (
 
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="GetStarted" component={GetStarted} />
-            <Stack.Screen name="SignUp" component={SignUp} />
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name='MainTab' component={BottomTab} />
-            <Stack.Screen name="Chats" component={Chats}
-            
+        <Stack.Navigator>
+            <Stack.Screen name="GetStarted" component={GetStarted}
+                options={{
+                    headerShown: false
+                }}
+            />
+            <Stack.Screen name="SignUp" component={SignUp} options={{
+                headerShown: false
+            }} />
+            <Stack.Screen name="Login" component={Login}
+                options={{
+                    headerShown: false
+                }} />
+            <Stack.Screen name='MainTab' component={BottomTab}
+                options={{
+                    headerShown: false
+                }}
+            />
+            <Stack.Screen name="Chats"
+                component={Chats}
+                options={({ route }) => ({
+                    headerStyle: {
+                        height: 80,
+                        backgroundColor: '#67a1f9',
+                    },
+                    title: route.params?.recieverName
+                })
+
+                }
+
             />
 
         </Stack.Navigator>

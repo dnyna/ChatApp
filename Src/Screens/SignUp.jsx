@@ -7,6 +7,9 @@ import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth'
 import Padding from '../styles/Padding'
 import Sizes from '../styles/Sizes';
+import Radius from '../styles/Radius';
+import Gaps from '../styles/Gaps';
+import BoldFont from '../styles/Bold';
 const SignUp = () => {
     const Navigation = useNavigation()
     const [name, setName] = useState('')
@@ -18,6 +21,7 @@ const SignUp = () => {
     const createUser = async () => {
         if (password !== confPassword) {
             Alert.alert('password is not matching')
+            return
         }
         createUserWithEmailAndPassword(getAuth(), email, password)
             .then(async userCredential => {
@@ -115,7 +119,7 @@ const styles = StyleSheet.create({
     container: {
         paddingLeft: Padding.small,
         paddingRight: Padding.small,
-        paddingTop: Padding.century,
+        paddingTop: Padding.century,   
 
     },
     headerTitle: {
@@ -123,21 +127,21 @@ const styles = StyleSheet.create({
     },
 
     emailinputWrapper: {
-        gap: 20,
+        gap: Gaps.small,
         paddingTop: Padding.TooSmalll
     },
 
     input: {
         borderWidth: Sizes.smallestOne,
         paddingRight: Padding.middleFourth,
-        borderRadius: 8,
+        borderRadius: Radius.smallerOne,
         paddingLeft: Padding.small,
         color: 'black'
 
     },
 
     passwordinputWrapper: {
-        gap: 20,
+        gap: Gaps.small,
         paddingTop: Padding.middle
     },
 
@@ -147,7 +151,7 @@ const styles = StyleSheet.create({
     },
 
     creteAcntBtn: {
-        borderRadius: 20,
+        borderRadius: Radius.middle,
         paddingVertical: Padding.smaller,
         paddingLeft: Padding.century,
         paddingRight: Padding.century,
@@ -168,7 +172,7 @@ const styles = StyleSheet.create({
 
     signUpTxt: {
         fontSize: Sizes.small,
-        fontWeight: 600,
+        fontWeight: BoldFont.large,
         color: 'blue',
         textAlign: 'center'
     }

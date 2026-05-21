@@ -7,6 +7,9 @@ import auth from '@react-native-firebase/auth'
 import Padding from '../styles/Padding'
 import Sizes from '../styles/Sizes'
 import Margins from '../styles/Margins'
+import Radius from '../styles/Radius'
+import Gaps from '../styles/Gaps'
+import BoldFont from '../styles/Bold'
 const ChatList = () => {
   const [users, setUsers] = useState([])
   const Navigation = useNavigation()
@@ -25,7 +28,7 @@ const ChatList = () => {
 
           if (data.email !== currentUser.email) {
             userData.push({
-              id: documentSnapshot.uid,
+              id: documentSnapshot.id,
               ...data,
             })
           }
@@ -38,22 +41,16 @@ const ChatList = () => {
 
   const Img = require('../Assets/avatar.png')
   const RenderItems = ({ item }) => (
-    <TouchableOpacity onPress={() => Navigation.navigate('Chats', { recieverId: item.uid, recieverEmail: item.email },)} style={{
-      paddingTop: Padding.small, flexDirection: 'row',
-      borderColor: 'black',
-      paddingVertical: Padding.small,
-      borderRadius: 10,
-
-
-    }}>
-      <View>
+    <TouchableOpacity onPress={() => Navigation.navigate('Chats', { recieverId: item.id, recieverEmail: item.email, recieverName: item.name })} style={styles.cartContainer}>
+      <View style={styles.imgContainer}>
         <Image source={Img} style={styles.img} />
+        {/* {item.name?.charAt(0).toUppercase()} */}
+
       </View>
       <View>
         <View>
-          <Text style={{ paddingLeft: Padding.small }}>{item.name}</Text>
-          {/* <Text>{LastSeen.date}</Te
-          xt> */}
+          <Text style={styles.chatListNames}>{item.name}</Text>
+          <Text style={styles.lastseenTxt}>Last seen</Text>
         </View>
 
       </View>
@@ -76,6 +73,7 @@ const ChatList = () => {
             data={users}
             renderItem={RenderItems}
             keyExtractor={item => item.id}
+            showsVerticalScrollIndicator={false}
           />
         </View>
       </View>
@@ -89,19 +87,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingBottom: Padding.halfCentury,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    borderBottomWidth: 1,
+    borderTopWidth: 1
+
   },
 
   addIcon: {
     position: 'absolute',
     right: Margins.middle,
-    top: -Margins.Fot,
+    top: -Margins.TFay,
     zIndex: 1
   },
 
   searchInput: {
     backgroundColor: 'white',
-    borderRadius: 20,
+    borderRadius: Radius.middle,
     paddingLeft: Padding.halfCentury,
     color: 'black',
     elevation: 1
@@ -118,9 +119,36 @@ const styles = StyleSheet.create({
     paddingTop: Padding.small,
     paddingBottom: Padding.small
   },
+
+  imgContainer: {
+    paddingTop: Padding.extarSmaller
+  },
+
   img: {
-    height: Sizes.large,
-    width: Sizes.large
+    height: Sizes.extraLarge,
+    width: Sizes.extraLarge,
+  },
+
+  chatListNames: {
+    paddingLeft: Padding.small,
+    fontSize: Sizes.SevnTn,
+    fontWeight: BoldFont.middle
+  },
+
+  lastseenTxt: {
+    color: 'grey',
+    paddingTop: Padding.TooSmalll,
+    marginLeft: Padding.small
+  },
+
+  cartContainer: {
+    paddingTop: Padding.small, flexDirection: 'row',
+    borderColor: 'black',
+    paddingVertical: Padding.small,
+    borderRadius: Radius.small,
+    borderBottomWidth: 0.5,
+    bordeColor: 'grey',
+    gap: Gaps.small
   }
 
 })

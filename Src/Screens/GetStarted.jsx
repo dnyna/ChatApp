@@ -3,6 +3,8 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import Padding from '../styles/Padding'
 import Sizes from '../styles/Sizes'
+import Radius from '../styles/Radius'
+import BoldFont from '../styles/Bold'
 const GetStarted = () => {
     const Illustration = require('../Assets/Illustration.png')
     const Navigation = useNavigation()
@@ -11,7 +13,7 @@ const GetStarted = () => {
             <View style={styles.imgConitainer}>
                 <Image source={Illustration} stye={styles.img} />
             </View>
-            <Text style={styles.connectTxt}>Connect easily with                    your family and friends            over countries</Text>
+            <Text style={styles.connectTxt} numberOfLines={5}>Connect easily with                         your family and friends over countries</Text>
             <Text style={{ textAlign: 'center' }}>Terms & Privacy Policy</Text>
             <View style={styles.btnWrapper}>
                 <TouchableOpacity style={styles.LoginBtn} onPress={() => Navigation.navigate('SignUp')}>
@@ -38,7 +40,7 @@ const styles = StyleSheet.create({
 
     connectTxt: {
         fontSize: Sizes.small,
-        fontWeight: 700,
+        fontWeight: BoldFont.largest,
         textAlign: 'center'
     },
 
@@ -48,7 +50,7 @@ const styles = StyleSheet.create({
     },
 
     LoginBtn: {
-        borderRadius: 20,
+        borderRadius: Radius.middle,
         paddingVertical: Padding.small,
         paddingHorizontal: Padding.century,
         alignSelf: 'center',

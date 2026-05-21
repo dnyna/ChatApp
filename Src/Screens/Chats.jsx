@@ -29,7 +29,7 @@ const Chats = ({ route }) => {
         const allMessages = querySapshot.docs.map(doc => {
           const data = doc.data()
           return {
-            ...data, createdAt: data.createdAt.toDate()
+            ...data, createdAt: data.createdAt ? data.createdAt.toDate() : new Date(),
           }
         })
         setMessages(allMessages)
@@ -41,6 +41,9 @@ const Chats = ({ route }) => {
   //send message
   const onSend = useCallback((messageArray = []) => {
     const msg = messageArray[0]
+    if (!msg || !CurrentUser?.uid || !recieverId) {
+      return
+    }
     const myMessage = {
       ...msg,
       sentBy: CurrentUser.uid,

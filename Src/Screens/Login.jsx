@@ -7,6 +7,8 @@ import firestore from '@react-native-firebase/firestore';
 import Padding from '../styles/Padding';
 import Sizes from '../styles/Sizes';
 import Gaps from '../styles/Gaps';
+import Radius from '../styles/Radius';
+import BoldFont from '../styles/Bold';
 const Login = () => {
     const Navigation = useNavigation()
     const [email, setEmail] = useState('')
@@ -100,7 +102,7 @@ const styles = StyleSheet.create({
 
     loginTitleTxt: {
         fontSize: Sizes.small,
-        fontWeight: 600,
+        fontWeight: BoldFont.large,
         color: 'blue',
         textAlign: 'center'
     },
@@ -117,7 +119,7 @@ const styles = StyleSheet.create({
     input: {
         borderWidth: Sizes.smallestOne,
         paddingRight: Padding.middleFourth,
-        borderRadius: 12,
+        borderRadius: Radius.Twel,
         paddingLeft: Padding.small,
         paddingTop: Padding.smaller,
         paddingBottom: Padding.smaller
@@ -134,7 +136,7 @@ const styles = StyleSheet.create({
     },
 
     LoginBtn: {
-        borderRadius: 20,
+        borderRadius: Radius.middle,
         paddingVertical: Padding.smaller,
         paddingHorizontal: Padding.middleFourthSmall,
         alignSelf: 'center',
