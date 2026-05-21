@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, FlatList, TextInput, TouchableOpacity, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import IonIcons from 'react-native-vector-icons/Ionicons'
-import firestore, { DocumentSnapshot, } from '@react-native-firebase/firestore'
+import firestore from '@react-native-firebase/firestore'
 import { useNavigation } from '@react-navigation/native'
 import auth from '@react-native-firebase/auth'
 import Padding from '../styles/Padding'
@@ -18,14 +18,14 @@ const ChatList = () => {
         const userData = []
         querySnapshot.forEach(documentSnapshot => {
           const data = documentSnapshot.data()
-   
+
           console.log(documentSnapshot.data())
 
           ///skipping login user
 
           if (data.email !== currentUser.email) {
             userData.push({
-              id: documentSnapshot.id,
+              id: documentSnapshot.uid,
               ...data,
             })
           }

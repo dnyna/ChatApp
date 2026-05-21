@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
 import IonIcons from 'react-native-vector-icons/Ionicons'
-import Firestore from '@react-native-firebase/firestore'
+import firestore from '@react-native-firebase/firestore'
 import Padding from '../styles/Padding'
 import Sizes from '../styles/Sizes'
 import Margins from '../styles/Margins'

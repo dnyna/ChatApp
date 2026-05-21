@@ -3,7 +3,7 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { getAuth, signInWithEmailAndPassword } from '@react-native-firebase/auth';
 import { useState } from 'react'
-import Firestore from '@react-native-firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
 import Padding from '../styles/Padding';
 import Sizes from '../styles/Sizes';
 import Gaps from '../styles/Gaps';
@@ -13,7 +13,7 @@ const Login = () => {
     const [password, setPassword] = useState('')
 
     const LoginUser = () => {
-        Firestore().collection('users').where('email', '==', email).get().then(res => {
+        firestore().collection('users').where('email', '==', email).get().then(res => {
             console.log(res)
         })
         if (!email || !password) {

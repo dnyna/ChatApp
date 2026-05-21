@@ -5,7 +5,7 @@ import { getAuth, createUserWithEmailAndPassword } from '@react-native-firebase/
 import { useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth'
-import Padding  from '../styles/Padding'
+import Padding from '../styles/Padding'
 import Sizes from '../styles/Sizes';
 const SignUp = () => {
     const Navigation = useNavigation()
@@ -28,9 +28,9 @@ const SignUp = () => {
                     .doc(user.uid)
                     .set({
 
-                        ud: user.uid,
+                        id: user.uid,
                         email: email,
-                        name:name,
+                        name: name,
                         createdAt: firestore.FieldValue.serverTimestamp()
                     }).then(res => {
                         console.log('userAccount got created')
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
 
     emailinputWrapper: {
         gap: 20,
-        paddingTop:Padding.TooSmalll
+        paddingTop: Padding.TooSmalll
     },
 
     input: {
