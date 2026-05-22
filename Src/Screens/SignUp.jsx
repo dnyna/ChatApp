@@ -11,7 +11,7 @@ import Gaps from '../styles/Gaps';
 import BoldFont from '../styles/Bold';
 import { ThemeToggleContex } from '../Context/ThemeContext';
 const SignUp = () => {
-    const { Theme, GreyTheme } = useContext(ThemeToggleContex)
+    const { Theme } = useContext(ThemeToggleContex)
     const Navigation = useNavigation()
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -62,7 +62,7 @@ const SignUp = () => {
             </View>
             <View style={styles.emailinputWrapper}>
                 <Text>name</Text>
-                <TextInput style={[styles.input, { backgroundColor: GreyTheme.backgroundColor }]}
+                <TextInput style={[styles.input, { backgroundColor: Theme.userContainerColor }]}
                     placeholder='please Enter you email'
                     placeholderTextColor={'grey'}
                     value={name}
@@ -71,7 +71,7 @@ const SignUp = () => {
 
             <View style={styles.emailinputWrapper}>
                 <Text>E-mail</Text>
-                <TextInput style={[styles.input, { backgroundColor: GreyTheme.backgroundColor }]}
+                <TextInput style={[styles.input, { backgroundColor: Theme.userContainerColor }]}
                     placeholder='please Enter you email'
                     placeholderTextColor={'grey'}
                     value={email}
@@ -87,7 +87,7 @@ const SignUp = () => {
             </View>
             <View style={styles.passwordinputWrapper}>
                 <Text>Confirm Password</Text>
-                <TextInput style={[styles.input, { backgroundColor: GreyTheme.backgroundColor }]}
+                <TextInput style={[styles.input, { backgroundColor: Theme.userContainerColor }]}
                     placeholder='please Enter you email'
                     placeholderTextColor={'grey'}
                     value={confPassword}

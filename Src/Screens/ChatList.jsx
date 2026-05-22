@@ -56,13 +56,13 @@ const ChatList = () => {
   }, [])
   //function for refresh
 
-  
+
 
 
   const Img = require('../Assets/avatar.png')
   const RenderItems = ({ item }) => (
-    <TouchableOpacity onPress={() => Navigation.navigate('Chats', { recieverId: item.id, recieverEmail: item.email, recieverName: item.name })} style={[styles.cartContainer, { color: GreyTheme.color }]}>
-      <View style={[styles.imgContainer, { backgroundColor: GreyTheme.backgroundColor }]}>
+    <TouchableOpacity onPress={() => Navigation.navigate('Chats', { recieverId: item.id, recieverEmail: item.email, recieverName: item.name })} style={[styles.cartContainer, { color: Theme.color }]}>
+      <View style={[styles.imgContainer, { backgroundColor: Theme.userContainerColor }]}>
         <Image source={Img} style={styles.img} />
         {/* {item.name?.charAt(0).toUppercase()} */}
 

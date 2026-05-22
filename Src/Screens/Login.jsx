@@ -11,7 +11,7 @@ import Radius from '../styles/Radius';
 import BoldFont from '../styles/Bold';
 import { ThemeToggleContex } from '../Context/ThemeContext';
 const Login = () => {
-    const { Theme, GreyTheme } = useContext(ThemeToggleContex)
+    const { Theme } = useContext(ThemeToggleContex)
     const Navigation = useNavigation()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -54,7 +54,7 @@ const Login = () => {
 
             <View style={styles.emailinputWrapper}>
                 <Text style={[styles.txts, { color: Theme.color }]}>E-mail</Text>
-                <TextInput style={[styles.input, { backgroundColor: GreyTheme.backgroundColor }]}
+                <TextInput style={[styles.input, { backgroundColor:Theme.userContainerColor }]}
                     placeholder='please Enter you email...'
                     placeholderTextColor={'grey'}
                     value={email}
@@ -62,7 +62,7 @@ const Login = () => {
             </View>
             <View style={styles.passwordinputWrapper}>
                 <Text style={[styles.txts, { color: Theme.color }]}>Password</Text>
-                <TextInput style={[styles.input, { backgroundColor: GreyTheme.backgroundColor }]}
+                <TextInput style={[styles.input, { backgroundColor:Theme.userContainerColor }]}
                     placeholder='please Enter you email...'
                     placeholderTextColor={'grey'}
                     value={password}

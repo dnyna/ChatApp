@@ -10,19 +10,14 @@ const ThemeContext = ({ children }) => {
     //it changes theme mode
     const ToggleTheme = () => {
         setMode(!mode) // false becomes true 
-                      // and true becomes false
+        // and true becomes false
     };
 
     const Theme = {  // it stopres theme color
         backgroundColor: mode ? 'black' : 'white',
         color: mode ? 'white' : 'black', //text color changes based on the  modes
-        CardColor: mode ? 'white' : 'black',  // card color changes based on modes
-    }
+        userContainerColor: mode ? '#bdbbbb' : 'white',  // card color changes based on modes
 
-    const GreyTheme = {
-        backgroundColor: mode ? '#bdbbbb' : 'white',
-        color: mode ? 'white' : '#c9bfbf',
-        CardColor: mode ? 'white' : '#a89f9f',
     }
 
 
@@ -31,7 +26,6 @@ const ThemeContext = ({ children }) => {
             value={{
                 Theme,
                 mode,
-                GreyTheme,
                 ToggleTheme
             }}>
             {children}

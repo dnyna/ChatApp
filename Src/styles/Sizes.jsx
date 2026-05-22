@@ -11,7 +11,8 @@ const Sizes = {
     extraLarge: 40,
     XXL: 45,
     XXXL: 50,
-    ToSxTo:262,
-    TSeOnTOn:271,
+    doubleExtraL: 80,
+    ToSxTo: 262,
+    TSeOnTOn: 271,
 }
 export default Sizes

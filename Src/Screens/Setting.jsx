@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, Alert } from 'react-native'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import IonIcons from 'react-native-vector-icons/Ionicons'
 import firestore from '@react-native-firebase/firestore'
 import Padding from '../styles/Padding'
@@ -14,7 +14,7 @@ import Colors from '../styles/Colors'
 import Auth from '@react-native-firebase/auth'
 const Setting = () => {
   const { mode, ToggleTheme, Theme } = useContext(ThemeToggleContex)
-  const Navigation = useNavigation()
+  const Navigation = useNavigation() 
   const [userName, setUserName] = useState('')
 
 
@@ -25,13 +25,13 @@ const Setting = () => {
       .doc(currentUser.uid)
       .onSnapshot(documentSnapshot => {      // runs whenever user collection changes
 
-        const data = documentSnapshot.data() //getting single documment data
+        const data = documentSnapshot.data() //getting single documment data      
         setUserName(data.name)
 
 
-        setUsers(userData) //storing all use data 
-        setLoading(false) // loading Stops here
+       // setUsers(userData) //storing all use data 
 
+       
       })
 
     return () => subscriber()

@@ -14,8 +14,7 @@ const Chats = ({ route }) => {  // here we are recieving routes from navigation
 
   //chatRoom id
   // creates unique chatRoom Id for two users
-  const chatId = CurrentUser.uid > recieverId
-    ? `${CurrentUser.uid}-${recieverId}` : `${recieverId}-${CurrentUser.uid}`
+    
 
   // fetching messages realtime
 
@@ -34,7 +33,7 @@ const Chats = ({ route }) => {  // here we are recieving routes from navigation
               data.createdAt.toDate()       // converts firebase timestamp into JS Date
               : new Date(),  //using current time
           }
-        })
+        }) 
         setMessages(allMessages) //updating chatmessage state
       })
     return unsubscribe
@@ -43,7 +42,7 @@ const Chats = ({ route }) => {  // here we are recieving routes from navigation
 
   //send message
   const onSend = useCallback((messageArray = []) => {  // function runs when user sends message wrapped inside useCallback for optimization
-    const msg = messageArray[0]                       // gifed chat sends message as array
+    const msg = messageArray[0]                       // gifted chat sends message as array
     if (!msg || !CurrentUser?.uid || !recieverId) {  // stops executions if message missing, user not logged in, or reciever is missing
       return
     }
