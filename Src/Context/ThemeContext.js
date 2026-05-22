@@ -20,9 +20,9 @@ const ThemeContext = ({ children }) => {
     }
 
     const GreyTheme = {
-        backgroundColor: mode ? '#1a1919' : 'white',
-        color: mode ? 'white' : '#1a1919',
-        CardColor: mode ? 'white' : '#1a1919',
+        backgroundColor: mode ? '#bdbbbb' : 'white',
+        color: mode ? 'white' : '#c9bfbf',
+        CardColor: mode ? 'white' : '#a89f9f',
     }
 
 

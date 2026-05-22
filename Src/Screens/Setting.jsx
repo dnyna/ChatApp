@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, Alert } from 'react-native'
 import React, { useContext } from 'react'
 import IonIcons from 'react-native-vector-icons/Ionicons'
 import firestore from '@react-native-firebase/firestore'
@@ -10,16 +10,19 @@ import { useNavigation } from '@react-navigation/native'
 import { Switch } from 'react-native'
 import { ThemeToggleContex } from '../Context/ThemeContext'
 import BoldFont from '../styles/Bold'
+import Colors from '../styles/Colors'
+import Auth from '@react-native-firebase/auth'
 const Setting = ({ route }) => {
   const recieverName = route.params?.recieverName
   const { mode, ToggleTheme, Theme } = useContext(ThemeToggleContex)
   const Navigation = useNavigation()
   const Img = require('../Assets/avatar.png')
 
+
   return (
     <View style={[styles.mainContainer, { backgroundColor: Theme.backgroundColor }]}>
       <View style={styles.profileView}>
-        <Image source={Img} style={[styles.img, { color: Theme.color }]} />
+        <IonIcons name='person-circle-outline' size={55} style={[styles.img, { color: Theme.color }]} />
         <Text style={[styles.usernameTxt, { color: Theme.color }]}>{recieverName}</Text>
 
         <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle, , { color: Theme.color }]} />
@@ -27,12 +30,12 @@ const Setting = ({ route }) => {
       </View>
       <View>
         <View style={styles.accountContainer}>
-          <IonIcons name='person-outline' size={22} style={styles.leftIcons} />
+          <IonIcons name='person-outline' size={22} style={[styles.leftIcons, { color: Theme.color }]} />
           <Text style={[styles.actTxt, { color: Theme.color }]}>Account</Text>
           <IonIcons name="chevron-forward-outline" size={22} style={[styles.AccountIcon, { color: Theme.color }]} />
         </View>
         <TouchableOpacity style={styles.chatContainer} onPress={() => Navigation.navigate('contacts')}>
-          <IonIcons name='chatbubble-outline' size={22} style={styles.leftIcons} />
+          <IonIcons name='chatbubble-outline' size={22} style={[styles.leftIcons, { color: Theme.color }]} />
           <Text style={[styles.chatTxt, { color: Theme.color }]}>Chats</Text>
           <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle, , { color: Theme.color }]} />
 
@@ -41,7 +44,7 @@ const Setting = ({ route }) => {
 
       <View style={styles.SecondContainer}>
         <View style={styles.appearanceView}>
-          <IonIcons name='sunny-outline' size={22} style={styles.leftIcons} />
+          <IonIcons name='sunny-outline' size={22} style={[styles.leftIcons, { color: Theme.color }]} />
           <Text style={[styles.chatTxt, { color: Theme.color }]}>Appereance</Text>
         </View>
 
@@ -56,19 +59,19 @@ const Setting = ({ route }) => {
           />
         </View>
         <View style={styles.appearanceView}>
-          <IonIcons name='notifications-outline' size={22} style={styles.leftIcons} />
+          <IonIcons name='notifications-outline' size={22} style={[styles.leftIcons, { color: Theme.color }]} />
           <Text style={[styles.chatTxt, { color: Theme.color }]}>Notification</Text>
           <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle, , { color: Theme.color }]} />
 
         </View>
         <View style={styles.appearanceView} >
-          <IonIcons name='document-lock-outline' size={22} style={styles.leftIcons} />
+          <IonIcons name='document-lock-outline' size={22} style={[styles.leftIcons, { color: Theme.color }]} />
           <Text style={[styles.chatTxt, { color: Theme.color }]}>Privacy</Text>
           <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle, , { color: Theme.color }]} />
 
         </View>
         <View style={styles.appearanceView}>
-          <IonIcons name='folder-outline' size={22} style={styles.leftIcons} />
+          <IonIcons name='folder-outline' size={22} style={[styles.leftIcons, { color: Theme.color }]} />
           <Text style={[styles.chatTxt, { color: Theme.color }]}>Data Usage</Text>
           <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle, , { color: Theme.color }]} />
 
@@ -77,17 +80,25 @@ const Setting = ({ route }) => {
 
 
       <View style={styles.appearanceView}>
-        <IonIcons name="help-circle-outline" size={22} style={styles.leftIcons} />
+        <IonIcons name="help-circle-outline" size={22} style={[styles.leftIcons, { color: Theme.color }]} />
         <Text style={[styles.chatTxt, { color: Theme.color }]}>Help</Text>
         <IonIcons name="chevron-forward-outline" size={22} style={[styles.Icons, , { color: Theme.color }]} />
 
       </View>
       <View style={styles.appearanceView}>
-        <IonIcons name='mail-outline' size={22} style={styles.leftIcons} />
+        <IonIcons name='mail-outline' size={22} style={[styles.leftIcons, { color: Theme.color }]} />
         <Text style={[styles.chatTxt, { color: Theme.color }]}>Invite Your Friends</Text>
         <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle, , { color: Theme.color }]} />
-
       </View>
+
+      <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'flex-start', paddingTop: 15 }} onPress={async () => {
+        await Auth().signOut()
+        Navigation.replace('Login')
+
+      }}>
+        <Text style={[styles.logOutTxt, { color: Theme.color }]}> LogOut </Text>
+        <IonIcons name='log-out-outline' size={20} />
+      </TouchableOpacity>
 
     </View>
   )
@@ -110,8 +121,7 @@ const styles = StyleSheet.create({
   },
 
   img: {
-    height: Sizes.XXL,
-    width: Sizes.XXL
+
   },
 
   usernameTxt: {
@@ -154,8 +164,8 @@ const styles = StyleSheet.create({
 
   switch: {
     position: 'absolute',
-    right: 10,
-    bottom: 1
+    right: Margins.small,
+    bottom: Margins.smallest
   },
 
   Icons: {
@@ -171,16 +181,20 @@ const styles = StyleSheet.create({
   },
 
   SecondContainer: {
-    paddingTop: Padding.doubleOfSmall,
+    paddingTop: Padding.middle,
     paddingBottom: Padding.small,
-    borderBottomWidth: 0.5,
-    borderColor: '#EDEDED'
+    borderBottomWidth: Sizes.smallestOne,
+    borderColor: Colors.primary
   },
 
   appearanceView: {
     flexDirection: 'row',
     gap: Gaps.Middle,
     paddingTop: Padding.middle
+  },
+
+  logOutTxt: {
+    fontWeight: BoldFont.large
   }
 
 })

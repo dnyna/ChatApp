@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Alert } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { getAuth, signInWithEmailAndPassword } from '@react-native-firebase/auth';
 import { useState } from 'react'
@@ -9,7 +9,9 @@ import Sizes from '../styles/Sizes';
 import Gaps from '../styles/Gaps';
 import Radius from '../styles/Radius';
 import BoldFont from '../styles/Bold';
+import { ThemeToggleContex } from '../Context/ThemeContext';
 const Login = () => {
+    const { Theme, GreyTheme } = useContext(ThemeToggleContex)
     const Navigation = useNavigation()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -45,22 +47,22 @@ const Login = () => {
             })
     }
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: Theme.backgroundColor }]}>
             <View>
-                <Text style={styles.loginTitleTxt}>Login</Text>
+                <Text style={[styles.loginTitleTxt, { color: Theme.color }]}>Login</Text>
             </View>
 
             <View style={styles.emailinputWrapper}>
-                <Text style={styles.txts}>E-mail</Text>
-                <TextInput style={styles.input}
+                <Text style={[styles.txts, { color: Theme.color }]}>E-mail</Text>
+                <TextInput style={[styles.input, { backgroundColor: GreyTheme.backgroundColor }]}
                     placeholder='please Enter you email...'
                     placeholderTextColor={'grey'}
                     value={email}
                     onChangeText={text => setEmail(text)} />
             </View>
             <View style={styles.passwordinputWrapper}>
-                <Text style={styles.txts}>Password</Text>
-                <TextInput style={styles.input}
+                <Text style={[styles.txts, { color: Theme.color }]}>Password</Text>
+                <TextInput style={[styles.input, { backgroundColor: GreyTheme.backgroundColor }]}
                     placeholder='please Enter you email...'
                     placeholderTextColor={'grey'}
                     value={password}
@@ -74,13 +76,11 @@ const Login = () => {
             </View>
             <View style={styles.footerWrapper}>
 
-                <Text>
+                <Text style={[styles.lastSentence, { color: Theme.color }]}>
                     Don't have an account?
                 </Text>
-                <TouchableOpacity style={styles.loginWrapper} onPress={() => Navigation.navigate('SignUp')}>
-                    <Text style={{
-                        fontSize: 14, fontWeight: '700'
-                    }}>   SignUp</Text>
+                <TouchableOpacity onPress={() => Navigation.navigate('SignUp')}>
+                    <Text style={[styles.SignUpTxt, {color:Theme.color}]}>   SignUp</Text>
                 </TouchableOpacity>
 
             </View>
@@ -95,6 +95,7 @@ export default Login
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         paddingLeft: Padding.small,
         paddingRight: Padding.small,
         paddingTop: Padding.century,
@@ -123,7 +124,6 @@ const styles = StyleSheet.create({
         paddingLeft: Padding.small,
         paddingTop: Padding.smaller,
         paddingBottom: Padding.smaller
-
     },
 
     passwordinputWrapper: {
@@ -152,6 +152,13 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         justifyContent: 'center'
     },
+    lastSentence: {
+        fontSize: 15
+    },
+    SignUpTxt: {
+        fontSize: 14,
+        fontWeight: BoldFont.small
+    }
 
 
 })  

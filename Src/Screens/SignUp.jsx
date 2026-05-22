@@ -1,16 +1,17 @@
 import { StyleSheet, Text, TextInput, View, TouchableOpacity, Alert } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { getAuth, createUserWithEmailAndPassword } from '@react-native-firebase/auth';
 import { useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
-import auth from '@react-native-firebase/auth'
 import Padding from '../styles/Padding'
 import Sizes from '../styles/Sizes';
 import Radius from '../styles/Radius';
 import Gaps from '../styles/Gaps';
 import BoldFont from '../styles/Bold';
+import { ThemeToggleContex } from '../Context/ThemeContext';
 const SignUp = () => {
+    const { Theme, GreyTheme } = useContext(ThemeToggleContex)
     const Navigation = useNavigation()
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -51,7 +52,7 @@ const SignUp = () => {
 
     }
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: Theme.backgroundColor }]}>
             <View style={styles.headerTitle}>
                 <Text style={styles.signUpTxt}>SignUp</Text>
             </View>
@@ -61,7 +62,7 @@ const SignUp = () => {
             </View>
             <View style={styles.emailinputWrapper}>
                 <Text>name</Text>
-                <TextInput style={styles.input}
+                <TextInput style={[styles.input, { backgroundColor: GreyTheme.backgroundColor }]}
                     placeholder='please Enter you email'
                     placeholderTextColor={'grey'}
                     value={name}
@@ -70,7 +71,7 @@ const SignUp = () => {
 
             <View style={styles.emailinputWrapper}>
                 <Text>E-mail</Text>
-                <TextInput style={styles.input}
+                <TextInput style={[styles.input, { backgroundColor: GreyTheme.backgroundColor }]}
                     placeholder='please Enter you email'
                     placeholderTextColor={'grey'}
                     value={email}
@@ -86,7 +87,7 @@ const SignUp = () => {
             </View>
             <View style={styles.passwordinputWrapper}>
                 <Text>Confirm Password</Text>
-                <TextInput style={styles.input}
+                <TextInput style={[styles.input, { backgroundColor: GreyTheme.backgroundColor }]}
                     placeholder='please Enter you email'
                     placeholderTextColor={'grey'}
                     value={confPassword}
@@ -94,7 +95,7 @@ const SignUp = () => {
             </View>
             <View style={styles.btnWrapper}>
                 <TouchableOpacity style={styles.creteAcntBtn} onPress={createUser}>
-                    <Text style={styles.txt}>Create account</Text>
+                    <Text style={[styles.txt, { color: Theme.color }]}>Create account</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.footerWrapper}>
@@ -102,10 +103,8 @@ const SignUp = () => {
                 <Text>
                     Already have an account?
                 </Text>
-                <TouchableOpacity style={styles.loginWrapper} onPress={() => Navigation.navigate('Login')}>
-                    <Text style={{
-                        fontSize: 14, fontWeight: '700'
-                    }}>   Login</Text>
+                <TouchableOpacity onPress={() => Navigation.navigate('Login')}>
+                    <Text style={[styles.loginTxt, { color: Theme.color }]}>   Login</Text>
                 </TouchableOpacity>
 
             </View>
@@ -117,9 +116,10 @@ export default SignUp
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         paddingLeft: Padding.small,
         paddingRight: Padding.small,
-        paddingTop: Padding.century,   
+        paddingTop: Padding.century,
 
     },
     headerTitle: {
@@ -137,7 +137,6 @@ const styles = StyleSheet.create({
         borderRadius: Radius.smallerOne,
         paddingLeft: Padding.small,
         color: 'black'
-
     },
 
     passwordinputWrapper: {
@@ -175,5 +174,11 @@ const styles = StyleSheet.create({
         fontWeight: BoldFont.large,
         color: 'blue',
         textAlign: 'center'
+    },
+
+    loginTxt: {
+        fontSize: 14,
+        fontWeight: BoldFont.small
+
     }
 })  

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, FlatList, TextInput, TouchableOpacity, Image } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import IonIcons from 'react-native-vector-icons/Ionicons'
 import firestore from '@react-native-firebase/firestore'
 import { useNavigation } from '@react-navigation/native'
@@ -10,10 +10,17 @@ import Margins from '../styles/Margins'
 import Radius from '../styles/Radius'
 import Gaps from '../styles/Gaps'
 import BoldFont from '../styles/Bold'
+import Zindexe from '../styles/Zindexe'
+import Shadow from '../styles/Shadow'
+import Loader from '../Component/Loader'
+import { ThemeToggleContex } from '../Context/ThemeContext'
 const ChatList = () => {
+  const { Theme, GreyTheme } = useContext(ThemeToggleContex)
   const [users, setUsers] = useState([])
+  const [loading, setLoading] = useState(false)
   const Navigation = useNavigation()
   useEffect(() => {
+    setLoading(true)
     const currentUser = auth().currentUser
     const subscriber = firestore()
       .collection('users')
@@ -31,25 +38,31 @@ const ChatList = () => {
               id: documentSnapshot.id,
               ...data,
             })
+
           }
+
         })
+
         setUsers(userData)
+        setLoading(false)
+
       })
+
     return () => subscriber()
   }, [])
 
 
   const Img = require('../Assets/avatar.png')
   const RenderItems = ({ item }) => (
-    <TouchableOpacity onPress={() => Navigation.navigate('Chats', { recieverId: item.id, recieverEmail: item.email, recieverName: item.name })} style={styles.cartContainer}>
-      <View style={styles.imgContainer}>
+    <TouchableOpacity onPress={() => Navigation.navigate('Chats', { recieverId: item.id, recieverEmail: item.email, recieverName: item.name })} style={[styles.cartContainer,{ color:GreyTheme.color}]}>
+      <View style={[styles.imgContainer, { backgroundColor: GreyTheme.backgroundColor }]}>
         <Image source={Img} style={styles.img} />
         {/* {item.name?.charAt(0).toUppercase()} */}
 
       </View>
       <View>
         <View>
-          <Text style={styles.chatListNames}>{item.name}</Text>
+          <Text style={[styles.chatListNames,{color:Theme.color}]}>{item.name}</Text>
           <Text style={styles.lastseenTxt}>Last seen</Text>
         </View>
 
@@ -58,7 +71,7 @@ const ChatList = () => {
     </TouchableOpacity >
   )
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: Theme.backgroundColor }]}>
       <TouchableOpacity onPress={() => Navigation.navigate('SignUp')} style={styles.addIcon}>
         <IonIcons name='add-outline' size={20} />
       </TouchableOpacity>
@@ -69,12 +82,19 @@ const ChatList = () => {
           style={styles.searchInput} />
         <IonIcons name='search-outline' size={25} style={styles.searchIcon} color={'grey'}></IonIcons>
         <View>
-          <FlatList
-            data={users}
-            renderItem={RenderItems}
-            keyExtractor={item => item.id}
-            showsVerticalScrollIndicator={false}
-          />
+          {loading ? (<Loader />) :
+            (
+              <FlatList
+                data={users}
+                renderItem={RenderItems}
+                keyExtractor={item => item.id}
+                showsVerticalScrollIndicator={false}
+                setLoading={true}
+              />
+
+
+            )}
+
         </View>
       </View>
     </View>
@@ -88,8 +108,8 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingBottom: Padding.halfCentury,
     backgroundColor: 'white',
-    borderBottomWidth: 1,
-    borderTopWidth: 1
+    borderBottomWidth: Sizes.smallestOne,
+    borderTopWidth: Sizes.smallestOne
 
   },
 
@@ -97,7 +117,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: Margins.middle,
     top: -Margins.TFay,
-    zIndex: 1
+    zIndex: Zindexe.first
   },
 
   searchInput: {
@@ -105,7 +125,7 @@ const styles = StyleSheet.create({
     borderRadius: Radius.middle,
     paddingLeft: Padding.halfCentury,
     color: 'black',
-    elevation: 1
+    elevation: Shadow.OnlyOne
   },
 
   searchIcon: {
@@ -146,7 +166,7 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     paddingVertical: Padding.small,
     borderRadius: Radius.small,
-    borderBottomWidth: 0.5,
+    borderBottomWidth: Sizes.smallestOne,
     bordeColor: 'grey',
     gap: Gaps.small
   }

@@ -1,4 +1,5 @@
 const Margins = {
+    smallest:1,
     small: 10,
     smaller: 5,
     smallest: 3,
