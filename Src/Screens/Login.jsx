@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Alert } from 'react-native'
 import React, { useContext } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { getAuth, signInWithEmailAndPassword } from '@react-native-firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from '@react-native-firebase/auth';  // getAuth () gets authentication && creates new user account
 import { useState } from 'react'
 import firestore from '@react-native-firebase/firestore';
 import Padding from '../styles/Padding';
@@ -17,15 +17,15 @@ const Login = () => {
     const [password, setPassword] = useState('')
 
     const LoginUser = () => {
-        firestore().collection('users').where('email', '==', email).get().then(res => {
-            console.log(res)
+        firestore().collection('users').where('email', '==', email).get().then(res => {  // checking firestore user collection where email matches eneterd email
+            console.log(res) 
         })
-        if (!email || !password) {
+        if (!email || !password) { // checking if email  or password is empty
             Alert.alert('error', 'please fill all filds')
-            return
+            return // stops login process if fields are empty
         }
 
-        signInWithEmailAndPassword(getAuth(), email, password)
+        signInWithEmailAndPassword(getAuth(), email, password) // logs instace into firebase authentication
             .then(() => {
                 console.log('login succees')
                 Navigation.navigate('MainTab')
@@ -58,7 +58,7 @@ const Login = () => {
                     placeholder='please Enter you email...'
                     placeholderTextColor={'grey'}
                     value={email}
-                    onChangeText={text => setEmail(text)} />
+                    onChangeText={text => setEmail(text)} /> //update state while typing
             </View>
             <View style={styles.passwordinputWrapper}>
                 <Text style={[styles.txts, { color: Theme.color }]}>Password</Text>
@@ -80,7 +80,7 @@ const Login = () => {
                     Don't have an account?
                 </Text>
                 <TouchableOpacity onPress={() => Navigation.navigate('SignUp')}>
-                    <Text style={[styles.SignUpTxt, {color:Theme.color}]}>   SignUp</Text>
+                    <Text style={[styles.SignUpTxt, { color: Theme.color }]}>   SignUp</Text>
                 </TouchableOpacity>
 
             </View>

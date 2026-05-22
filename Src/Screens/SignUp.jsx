@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TextInput, View, TouchableOpacity, Alert } from 'react-native'
 import React, { useContext } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { getAuth, createUserWithEmailAndPassword } from '@react-native-firebase/auth';
+import { getAuth, createUserWithEmailAndPassword } from '@react-native-firebase/auth'; // getAuth () gets authentication && creates new user account
 import { useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import Padding from '../styles/Padding'
@@ -22,21 +22,21 @@ const SignUp = () => {
     const createUser = async () => {
         if (password !== confPassword) {
             Alert.alert('password is not matching')
-            return
+            return // stops execution if passwords are not matching
         }
         createUserWithEmailAndPassword(getAuth(), email, password)
             .then(async userCredential => {
 
                 const user = userCredential.user
                 await firestore()
-                    .collection('users')
-                    .doc(user.uid)
-                    .set({
+                    .collection('users')  // accessing user collection
+                    .doc(user.uid) // using firebase user UID as document id
+                    .set({ // storing userData
 
                         id: user.uid,
                         email: email,
                         name: name,
-                        createdAt: firestore.FieldValue.serverTimestamp()
+                        createdAt: firestore.FieldValue.serverTimestamp() // store firebase server time
                     }).then(res => {
                         console.log('userAccount got created')
 

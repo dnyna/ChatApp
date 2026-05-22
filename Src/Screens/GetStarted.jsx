@@ -5,6 +5,7 @@ import Padding from '../styles/Padding'
 import Sizes from '../styles/Sizes'
 import Radius from '../styles/Radius'
 import BoldFont from '../styles/Bold'
+import Margins from '../styles/Margins'
 const GetStarted = () => {
     const Illustration = require('../Assets/Illustration.png')
     const Navigation = useNavigation()
@@ -14,7 +15,7 @@ const GetStarted = () => {
                 <Image source={Illustration} stye={styles.img} />
             </View>
             <Text style={styles.connectTxt} numberOfLines={5}>Connect easily with                         your family and friends over countries</Text>
-            <Text style={{ textAlign: 'center' }}>Terms & Privacy Policy</Text>
+            <Text style={styles.termTxt}>Terms & Privacy Policy</Text>
             <View style={styles.btnWrapper}>
                 <TouchableOpacity style={styles.LoginBtn} onPress={() => Navigation.navigate('SignUp')}>
                     <Text style={styles.txt}>Start Messaging</Text>
@@ -42,6 +43,11 @@ const styles = StyleSheet.create({
         fontSize: Sizes.small,
         fontWeight: BoldFont.largest,
         textAlign: 'center'
+    },
+
+    termTxt: {
+        textAlign: 'center',
+        marginTop: Margins.Thity
     },
 
     btnWrapper: {

@@ -18,20 +18,22 @@ const ChatList = () => {
   const { Theme, GreyTheme } = useContext(ThemeToggleContex)
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(false)
+  const [refresh, setRefresh] = useState(false)
   const Navigation = useNavigation()
-  useEffect(() => {
-    setLoading(true)
-    const currentUser = auth().currentUser
-    const subscriber = firestore()
-      .collection('users')
-      .onSnapshot(querySnapshot => {
-        const userData = []
-        querySnapshot.forEach(documentSnapshot => {
-          const data = documentSnapshot.data()
+
+  useEffect(() => { // runs automatically when component loads
+    setLoading(true) //loader starts here before geting the list
+    const currentUser = auth().currentUser // gets currently logged in user
+    const subscriber = firestore() // sarts fireStore connection
+      .collection('users') // accessing user collection
+      .onSnapshot(querySnapshot => {      // runs whenever user collection changes
+        const userData = [] //stores fetched users temporarily
+        querySnapshot.forEach(documentSnapshot => {//  loops through every firestore  document
+          const data = documentSnapshot.data() //getting single documment data
 
           console.log(documentSnapshot.data())
 
-          ///skipping login user
+          ///skipping login user from the list
 
           if (data.email !== currentUser.email) {
             userData.push({
@@ -43,18 +45,23 @@ const ChatList = () => {
 
         })
 
-        setUsers(userData)
-        setLoading(false)
+        setUsers(userData) //storing all use data 
+        setLoading(false) // loading Stops here
 
       })
-
+    setTimeout(() => { //timer for loader
+      setLoading(false)
+    }, 10000)
     return () => subscriber()
   }, [])
+  //function for refresh
+
+  
 
 
   const Img = require('../Assets/avatar.png')
   const RenderItems = ({ item }) => (
-    <TouchableOpacity onPress={() => Navigation.navigate('Chats', { recieverId: item.id, recieverEmail: item.email, recieverName: item.name })} style={[styles.cartContainer,{ color:GreyTheme.color}]}>
+    <TouchableOpacity onPress={() => Navigation.navigate('Chats', { recieverId: item.id, recieverEmail: item.email, recieverName: item.name })} style={[styles.cartContainer, { color: GreyTheme.color }]}>
       <View style={[styles.imgContainer, { backgroundColor: GreyTheme.backgroundColor }]}>
         <Image source={Img} style={styles.img} />
         {/* {item.name?.charAt(0).toUppercase()} */}
@@ -62,7 +69,7 @@ const ChatList = () => {
       </View>
       <View>
         <View>
-          <Text style={[styles.chatListNames,{color:Theme.color}]}>{item.name}</Text>
+          <Text style={[styles.chatListNames, { color: Theme.color }]}>{item.name}</Text>
           <Text style={styles.lastseenTxt}>Last seen</Text>
         </View>
 
@@ -89,7 +96,6 @@ const ChatList = () => {
                 renderItem={RenderItems}
                 keyExtractor={item => item.id}
                 showsVerticalScrollIndicator={false}
-                setLoading={true}
               />
 
 
@@ -167,7 +173,7 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.small,
     borderRadius: Radius.small,
     borderBottomWidth: Sizes.smallestOne,
-    bordeColor: 'grey',
+    borderColor: 'grey',
     gap: Gaps.small
   }
 

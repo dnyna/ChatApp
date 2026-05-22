@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, Alert } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import IonIcons from 'react-native-vector-icons/Ionicons'
 import firestore from '@react-native-firebase/firestore'
 import Padding from '../styles/Padding'
@@ -12,18 +12,35 @@ import { ThemeToggleContex } from '../Context/ThemeContext'
 import BoldFont from '../styles/Bold'
 import Colors from '../styles/Colors'
 import Auth from '@react-native-firebase/auth'
-const Setting = ({ route }) => {
-  const recieverName = route.params?.recieverName
+const Setting = () => {
   const { mode, ToggleTheme, Theme } = useContext(ThemeToggleContex)
   const Navigation = useNavigation()
-  const Img = require('../Assets/avatar.png')
+  const [userName, setUserName] = useState('')
 
 
+  useEffect(() => { // runs automatically when component loads
+    const currentUser = Auth().currentUser // gets currently logged in user
+    const subscriber = firestore() // sarts fireStore connection
+      .collection('users') // accessing user collection
+      .doc(currentUser.uid)
+      .onSnapshot(documentSnapshot => {      // runs whenever user collection changes
+
+        const data = documentSnapshot.data() //getting single documment data
+        setUserName(data.name)
+
+
+        setUsers(userData) //storing all use data 
+        setLoading(false) // loading Stops here
+
+      })
+
+    return () => subscriber()
+  }, [])
   return (
     <View style={[styles.mainContainer, { backgroundColor: Theme.backgroundColor }]}>
       <View style={styles.profileView}>
         <IonIcons name='person-circle-outline' size={55} style={[styles.img, { color: Theme.color }]} />
-        <Text style={[styles.usernameTxt, { color: Theme.color }]}>{recieverName}</Text>
+        <Text style={[styles.usernameTxt, { color: Theme.color }]}>{userName}</Text>
 
         <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle, , { color: Theme.color }]} />
 
