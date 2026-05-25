@@ -14,7 +14,7 @@ import Colors from '../styles/Colors'
 import Auth from '@react-native-firebase/auth'
 const Setting = () => {
   const { mode, ToggleTheme, Theme } = useContext(ThemeToggleContex)
-  const Navigation = useNavigation() 
+  const Navigation = useNavigation()
   const [userName, setUserName] = useState('')
 
 
@@ -26,12 +26,13 @@ const Setting = () => {
       .onSnapshot(documentSnapshot => {      // runs whenever user collection changes
 
         const data = documentSnapshot.data() //getting single documment data      
-        setUserName(data.name)
+        setUserName(data.email)
 
 
-       // setUsers(userData) //storing all use data 
 
-       
+        // setUsers(userData) //storing all use data 
+
+
       })
 
     return () => subscriber()
@@ -41,21 +42,21 @@ const Setting = () => {
       <View style={styles.profileView}>
         <IonIcons name='person-circle-outline' size={55} style={[styles.img, { color: Theme.color }]} />
         <Text style={[styles.usernameTxt, { color: Theme.color }]}>{userName}</Text>
-
         <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle, { color: Theme.color }]} />
-
       </View>
+
       <View>
+
         <View style={styles.accountContainer}>
           <IonIcons name='person-outline' size={22} style={[styles.leftIcons, { color: Theme.color }]} />
           <Text style={[styles.actTxt, { color: Theme.color }]}>Account</Text>
           <IonIcons name="chevron-forward-outline" size={22} style={[styles.AccountIcon, { color: Theme.color }]} />
         </View>
+
         <TouchableOpacity style={styles.chatContainer} onPress={() => Navigation.navigate('contacts')}>
           <IonIcons name='chatbubble-outline' size={22} style={[styles.leftIcons, { color: Theme.color }]} />
           <Text style={[styles.chatTxt, { color: Theme.color }]}>Chats</Text>
           <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle, { color: Theme.color }]} />
-
         </TouchableOpacity>
       </View>
 
@@ -78,19 +79,19 @@ const Setting = () => {
         <View style={styles.appearanceView}>
           <IonIcons name='notifications-outline' size={22} style={[styles.leftIcons, { color: Theme.color }]} />
           <Text style={[styles.chatTxt, { color: Theme.color }]}>Notification</Text>
-          <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle,  { color: Theme.color }]} />
+          <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle, { color: Theme.color }]} />
 
         </View>
         <View style={styles.appearanceView} >
           <IonIcons name='document-lock-outline' size={22} style={[styles.leftIcons, { color: Theme.color }]} />
           <Text style={[styles.chatTxt, { color: Theme.color }]}>Privacy</Text>
-          <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle,  { color: Theme.color }]} />
+          <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle, { color: Theme.color }]} />
 
         </View>
         <View style={styles.appearanceView}>
           <IonIcons name='folder-outline' size={22} style={[styles.leftIcons, { color: Theme.color }]} />
           <Text style={[styles.chatTxt, { color: Theme.color }]}>Data Usage</Text>
-          <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle,  { color: Theme.color }]} />
+          <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle, { color: Theme.color }]} />
 
         </View>
       </View>
@@ -114,7 +115,7 @@ const Setting = () => {
 
       }}>
         <Text style={[styles.logOutTxt, { color: Theme.color }]}> LogOut </Text>
-        <IonIcons name='log-out-outline' size={20} />
+        <IonIcons name='log-out-outline' size={20} style={[styles.logOutIcon, , { color: Theme.color }]} />
       </TouchableOpacity>
 
     </View>
@@ -143,7 +144,9 @@ const styles = StyleSheet.create({
 
   usernameTxt: {
     fontSize: Sizes.SevnTn,
-    fontWeight: BoldFont.small
+    fontWeight: BoldFont.largest,
+    paddingTop: 5,
+    paddingLeft: 10
   },
 
   accountContainer: {
@@ -212,6 +215,9 @@ const styles = StyleSheet.create({
 
   logOutTxt: {
     fontWeight: BoldFont.large
-  }
+  },
 
+  logOutIcon: {
+    color: 'black'
+  }
 })

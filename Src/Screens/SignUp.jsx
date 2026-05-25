@@ -61,7 +61,7 @@ const SignUp = () => {
 
             </View>
             <View style={styles.emailinputWrapper}>
-                <Text>name</Text>
+                <Text style={[styles.inputTxt, { color: Theme.color }]}>name</Text>
                 <TextInput style={[styles.input, { backgroundColor: Theme.userContainerColor }]}
                     placeholder='please Enter you email'
                     placeholderTextColor={'grey'}
@@ -70,7 +70,7 @@ const SignUp = () => {
             </View>
 
             <View style={styles.emailinputWrapper}>
-                <Text>E-mail</Text>
+                <Text style={[styles.inputTxt, { color: Theme.color }]}>E-mail</Text>
                 <TextInput style={[styles.input, { backgroundColor: Theme.userContainerColor }]}
                     placeholder='please Enter you email'
                     placeholderTextColor={'grey'}
@@ -78,15 +78,15 @@ const SignUp = () => {
                     onChangeText={text => setEmail(text)} />
             </View>
             <View style={styles.passwordinputWrapper}>
-                <Text>Password</Text>
-                <TextInput style={styles.input}
+                <Text style={[styles.inputTxt, { color: Theme.color }]}>Password</Text>
+                <TextInput style={[styles.input, { backgroundColor: Theme.userContainerColor }]}
                     placeholder='please Enter you email'
                     placeholderTextColor={'grey'}
                     value={password}
                     onChangeText={text => setPassword(text)} />
             </View>
             <View style={styles.passwordinputWrapper}>
-                <Text>Confirm Password</Text>
+                <Text style={[styles.inputTxt, { color: Theme.color }]}>Confirm Password</Text>
                 <TextInput style={[styles.input, { backgroundColor: Theme.userContainerColor }]}
                     placeholder='please Enter you email'
                     placeholderTextColor={'grey'}
@@ -100,7 +100,7 @@ const SignUp = () => {
             </View>
             <View style={styles.footerWrapper}>
 
-                <Text>
+                <Text style={[styles.alredyActTxt, { color: Theme.color }]}>
                     Already have an account?
                 </Text>
                 <TouchableOpacity onPress={() => Navigation.navigate('Login')}>
@@ -129,6 +129,10 @@ const styles = StyleSheet.create({
     emailinputWrapper: {
         gap: Gaps.small,
         paddingTop: Padding.TooSmalll
+    },
+
+    inputTxt: {
+        color: 'black'
     },
 
     input: {
@@ -167,6 +171,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center'
+    },
+
+    alredyActTxt: {
+        color: 'black'
     },
 
     signUpTxt: {

@@ -32,7 +32,7 @@ const StackNavigator = () => {
                 component={Chats}
                 options={({ route }) => ({
                     headerStyle: {
-                        height: 80,
+                        height: 90,
                         backgroundColor: '#67a1f9',
                     },
                     title: route.params?.recieverName
