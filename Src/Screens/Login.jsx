@@ -58,7 +58,7 @@ const Login = () => {
                     placeholder='please Enter you email...'
                     placeholderTextColor={'grey'}
                     value={email}
-                    onChangeText={text => setEmail(text)} /> //update state while typing
+                    onChangeText={text => setEmail(text)} /> 
             </View>
             <View style={styles.passwordinputWrapper}>
                 <Text style={[styles.txts, { color: Theme.color }]}>Password</Text>

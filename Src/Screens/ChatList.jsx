@@ -15,7 +15,7 @@ import Shadow from '../styles/Shadow'
 import Loader from '../Component/Loader'
 import { ThemeToggleContex } from '../Context/ThemeContext'
 const ChatList = () => {
-  const { Theme, GreyTheme } = useContext(ThemeToggleContex)
+  const { Theme } = useContext(ThemeToggleContex)
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(false)
   const [refresh, setRefresh] = useState(false)

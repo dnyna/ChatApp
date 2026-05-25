@@ -42,7 +42,7 @@ const Setting = () => {
         <IonIcons name='person-circle-outline' size={55} style={[styles.img, { color: Theme.color }]} />
         <Text style={[styles.usernameTxt, { color: Theme.color }]}>{userName}</Text>
 
-        <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle, , { color: Theme.color }]} />
+        <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle, { color: Theme.color }]} />
 
       </View>
       <View>
@@ -54,7 +54,7 @@ const Setting = () => {
         <TouchableOpacity style={styles.chatContainer} onPress={() => Navigation.navigate('contacts')}>
           <IonIcons name='chatbubble-outline' size={22} style={[styles.leftIcons, { color: Theme.color }]} />
           <Text style={[styles.chatTxt, { color: Theme.color }]}>Chats</Text>
-          <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle, , { color: Theme.color }]} />
+          <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle, { color: Theme.color }]} />
 
         </TouchableOpacity>
       </View>
@@ -78,19 +78,19 @@ const Setting = () => {
         <View style={styles.appearanceView}>
           <IonIcons name='notifications-outline' size={22} style={[styles.leftIcons, { color: Theme.color }]} />
           <Text style={[styles.chatTxt, { color: Theme.color }]}>Notification</Text>
-          <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle, , { color: Theme.color }]} />
+          <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle,  { color: Theme.color }]} />
 
         </View>
         <View style={styles.appearanceView} >
           <IonIcons name='document-lock-outline' size={22} style={[styles.leftIcons, { color: Theme.color }]} />
           <Text style={[styles.chatTxt, { color: Theme.color }]}>Privacy</Text>
-          <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle, , { color: Theme.color }]} />
+          <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle,  { color: Theme.color }]} />
 
         </View>
         <View style={styles.appearanceView}>
           <IonIcons name='folder-outline' size={22} style={[styles.leftIcons, { color: Theme.color }]} />
           <Text style={[styles.chatTxt, { color: Theme.color }]}>Data Usage</Text>
-          <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle, , { color: Theme.color }]} />
+          <IonIcons name="chevron-forward-outline" size={22} style={[styles.iconstyle,  { color: Theme.color }]} />
 
         </View>
       </View>
@@ -99,7 +99,7 @@ const Setting = () => {
       <View style={styles.appearanceView}>
         <IonIcons name="help-circle-outline" size={22} style={[styles.leftIcons, { color: Theme.color }]} />
         <Text style={[styles.chatTxt, { color: Theme.color }]}>Help</Text>
-        <IonIcons name="chevron-forward-outline" size={22} style={[styles.Icons, , { color: Theme.color }]} />
+        <IonIcons name="chevron-forward-outline" size={22} style={[styles.Icons, { color: Theme.color }]} />
 
       </View>
       <View style={styles.appearanceView}>
