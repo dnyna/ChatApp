@@ -135,6 +135,7 @@ const Chats = ({ route }) => {  // here we are recieving routes from navigation
           name: CurrentUser.email,
 
         }}
+      // isTyping
       // RenderTicks={TickMarks}
       />
     </View>

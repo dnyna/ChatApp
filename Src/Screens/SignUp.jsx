@@ -10,6 +10,7 @@ import Radius from '../styles/Radius';
 import Gaps from '../styles/Gaps';
 import BoldFont from '../styles/Bold';
 import { ThemeToggleContex } from '../Context/ThemeContext';
+import Colors from '../styles/Colors';
 const SignUp = () => {
     const { Theme } = useContext(ThemeToggleContex)
     const Navigation = useNavigation()
@@ -180,7 +181,7 @@ const styles = StyleSheet.create({
     signUpTxt: {
         fontSize: Sizes.small,
         fontWeight: BoldFont.large,
-        color: 'blue',
+        color: Colors.blue,
         textAlign: 'center'
     },
 

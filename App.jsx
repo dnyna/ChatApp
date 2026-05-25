@@ -1,26 +1,27 @@
-import { StyleSheet } from 'react-native'
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import StackNavigator from './Src/Navigation/StackNavigator'
 import ThemeToggleContex from './Src/Context/ThemeContext'
 import { AppState } from 'react-native'
 import Auth from '@react-native-firebase/auth'
-import { firestore } from '@react-native-firebase/firestore'
+import  firestore  from '@react-native-firebase/firestore'
 import { useEffect } from 'react'
 const App = () => {
 
   useEffect(() => {
-    const CurrentUser = Auth().CurrentUser
+    const CurrentUser = Auth().currentUser
 
     if (!CurrentUser) {
       return
     }
-    const UpdatedUserStatus = async () => {
+    console.log(CurrentUser.uid, 'id');
+    
+    const UpdatedUserStatus = async (status) => {
       await firestore()
         .collection('users')
         .doc(CurrentUser.uid)
         .update({
-          online: Status,
+          online: status,
           lastSeen: firestore.FieldValue.serverTimestamp(),
         })
     }
@@ -56,6 +57,3 @@ const App = () => {
 
 export default App
 
-const styles = StyleSheet.create({
-
-})
