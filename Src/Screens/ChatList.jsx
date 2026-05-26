@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList, TextInput, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, Text, View, FlatList, TextInput, TouchableOpacity, Image, RefreshControl } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import IonIcons from 'react-native-vector-icons/Ionicons'
 import firestore from '@react-native-firebase/firestore'
@@ -12,24 +12,23 @@ import Gaps from '../styles/Gaps'
 import BoldFont from '../styles/Bold'
 import Zindexe from '../styles/Zindexe'
 import Shadow from '../styles/Shadow'
-import Loader from '../Component/Loader'
 import { ThemeToggleContex } from '../Context/ThemeContext'
+import Flexes from '../styles/Flexes'
+import Colors from '../styles/Colors'
 const ChatList = () => {
-  const { Theme } = useContext(ThemeToggleContex)
+  const { Theme, } = useContext(ThemeToggleContex)
   const [users, setUsers] = useState([])
-  const [loading, setLoading] = useState(false)
   const [refresh, setRefresh] = useState(false)
   const Navigation = useNavigation()
 
-  useEffect(() => { // runs automatically when component loads
-    setLoading(true) //loader starts here before geting the list
-    const currentUser = auth().currentUser // gets currently logged in user
-    const subscriber = firestore() // sarts fireStore connection
-      .collection('users') // accessing user collection
-      .onSnapshot(querySnapshot => {      // runs whenever user collection changes
-        const userData = [] //stores fetched users temporarily
-        querySnapshot.forEach(documentSnapshot => {//  loops through every firestore  document
-          const data = documentSnapshot.data() //getting single documment data
+  useEffect(() => {                                                // runs automatically when component loads
+    const currentUser = auth().currentUser                        // gets currently logged in user
+    const subscriber = firestore()                               // sarts fireStore connection
+      .collection('users')                                      // accessing user collection
+      .onSnapshot(querySnapshot => {                           // runs whenever user collection changes
+        const userData = []                                   //stores fetched users temporarily
+        querySnapshot.forEach(documentSnapshot => {          //  loops through every firestore  document
+          const data = documentSnapshot.data()              //getting single documment data
 
           console.log(documentSnapshot.data())
 
@@ -45,18 +44,22 @@ const ChatList = () => {
 
         })
 
-        setUsers(userData) //storing all use data 
-        setLoading(false) // loading Stops here
+        setUsers(userData)                  //storing all use data 
 
       })
-    setTimeout(() => { //timer for loader
-      setLoading(false)
-    }, 10000)
+
     return () => subscriber()
   }, [])
+
   //function for refresh
 
+  const onRefresh = () => {
+    setRefresh(true)
+    setTimeout(() => {
+      setRefresh(false)
+    }, 2000)
 
+  }
 
 
   const Img = require('../Assets/avatar.png')
@@ -64,7 +67,6 @@ const ChatList = () => {
     <TouchableOpacity onPress={() => Navigation.navigate('Chats', { recieverId: item.id, recieverEmail: item.email, recieverName: item.name })} style={[styles.cartContainer, { color: Theme.color }]}>
       <View style={[styles.imgContainer, { backgroundColor: Theme.userContainerColor }]}>
         <Image source={Img} style={styles.img} />
-        {/* {item.name?.charAt(0).toUppercase()} */}
 
       </View>
       <View>
@@ -80,27 +82,29 @@ const ChatList = () => {
   return (
     <View style={[styles.container, { backgroundColor: Theme.backgroundColor }]}>
       <TouchableOpacity onPress={() => Navigation.navigate('SignUp')} style={styles.addIcon}>
-        <IonIcons name='add-outline' size={20} />
+        <IonIcons name='add-outline' size={Sizes.smaller} />
       </TouchableOpacity>
       <View style={styles.searchContainer}>
         <TextInput
           placeholder='search'
-          placeholderTextColor={'grey'}
-          style={styles.searchInput} />
-        <IonIcons name='search-outline' size={25} style={styles.searchIcon} color={'grey'}></IonIcons>
+          placeholderTextColor={Colors.ButtnColor}
+          style={[styles.searchInput,{color:Theme.color, backgroundColor: Theme.backgroundColor, borderColor:Theme.color}]} />
+        <IonIcons name='search-outline' size={Sizes.small} style={styles.searchIcon} color={Colors.ButtnColor}></IonIcons>
         <View>
-          {loading ? (<Loader />) :
-            (
-              <FlatList
-                data={users}
-                renderItem={RenderItems}
-                keyExtractor={item => item.id}
-                showsVerticalScrollIndicator={false}
+
+
+          <FlatList
+            data={users}
+            renderItem={RenderItems}
+            keyExtractor={item => item.id}
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+              <RefreshControl
+                refreshing={refresh}
+                onRefresh={onRefresh}
               />
-
-
-            )}
-
+            }
+          />
         </View>
       </View>
     </View>
@@ -111,9 +115,9 @@ export default ChatList
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: Flexes.flexible,
     paddingBottom: Padding.halfCentury,
-    backgroundColor: 'white',
+    backgroundColor: Colors.BasicPrimary,
     borderBottomWidth: Sizes.smallestOne,
     borderTopWidth: Sizes.smallestOne
 
@@ -127,11 +131,12 @@ const styles = StyleSheet.create({
   },
 
   searchInput: {
-    backgroundColor: 'white',
+    backgroundColor:Colors.BasicPrimary,
     borderRadius: Radius.middle,
     paddingLeft: Padding.halfCentury,
-    color: 'black',
-    elevation: Shadow.OnlyOne
+    color:Colors.realBlack,
+    elevation: Shadow.OnlyOne,
+    borderWidth:Sizes.smallestOne
   },
 
   searchIcon: {
@@ -147,7 +152,8 @@ const styles = StyleSheet.create({
   },
 
   imgContainer: {
-    paddingTop: Padding.extarSmaller
+    paddingTop: Padding.extarSmaller,
+    
   },
 
   img: {
@@ -162,18 +168,18 @@ const styles = StyleSheet.create({
   },
 
   lastseenTxt: {
-    color: 'grey',
+    color:Colors.Grey,
     paddingTop: Padding.TooSmalll,
     marginLeft: Padding.small
   },
 
   cartContainer: {
     paddingTop: Padding.small, flexDirection: 'row',
-    borderColor: 'black',
+    borderColor:Colors.realBlack,
     paddingVertical: Padding.small,
     borderRadius: Radius.small,
     borderBottomWidth: Sizes.smallestOne,
-    borderColor: 'grey',
+    borderColor:Colors.Grey,
     gap: Gaps.small
   }
 

@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Alert } from 'react-native'
 import React, { useContext } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { getAuth, signInWithEmailAndPassword } from '@react-native-firebase/auth';  // getAuth () gets authentication && creates new user account
+import auth from '@react-native-firebase/auth';  // getAuth () gets authentication && creates new user account
 import { useState } from 'react'
 import firestore from '@react-native-firebase/firestore';
 import Padding from '../styles/Padding';
@@ -10,6 +10,8 @@ import Gaps from '../styles/Gaps';
 import Radius from '../styles/Radius';
 import BoldFont from '../styles/Bold';
 import { ThemeToggleContex } from '../Context/ThemeContext';
+import Flexes from '../styles/Flexes';
+import Colors from '../styles/Colors';
 const Login = () => {
     const { Theme } = useContext(ThemeToggleContex)
     const Navigation = useNavigation()
@@ -18,14 +20,14 @@ const Login = () => {
 
     const LoginUser = () => {
         firestore().collection('users').where('email', '==', email).get().then(res => {  // checking firestore user collection where email matches eneterd email
-            console.log(res) 
+            console.log(res)
         })
         if (!email || !password) { // checking if email  or password is empty
             Alert.alert('error', 'please fill all filds')
             return // stops login process if fields are empty
         }
 
-        signInWithEmailAndPassword(getAuth(), email, password) // logs instace into firebase authentication
+        auth().signInWithEmailAndPassword( email, password) // logs instace into firebase authentication
             .then(() => {
                 console.log('login succees')
                 Navigation.navigate('MainTab')
@@ -54,15 +56,15 @@ const Login = () => {
 
             <View style={styles.emailinputWrapper}>
                 <Text style={[styles.txts, { color: Theme.color }]}>E-mail</Text>
-                <TextInput style={[styles.input, { backgroundColor:Theme.userContainerColor }]}
+                <TextInput style={[styles.input, { backgroundColor: Theme.userContainerColor }]}
                     placeholder='please Enter you email...'
                     placeholderTextColor={'grey'}
                     value={email}
-                    onChangeText={text => setEmail(text)} /> 
+                    onChangeText={text => setEmail(text)} />
             </View>
             <View style={styles.passwordinputWrapper}>
                 <Text style={[styles.txts, { color: Theme.color }]}>Password</Text>
-                <TextInput style={[styles.input, { backgroundColor:Theme.userContainerColor }]}
+                <TextInput style={[styles.input, { backgroundColor: Theme.userContainerColor }]}
                     placeholder='please Enter you email...'
                     placeholderTextColor={'grey'}
                     value={password}
@@ -95,7 +97,7 @@ export default Login
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: Flexes.flexible,
         paddingLeft: Padding.small,
         paddingRight: Padding.small,
         paddingTop: Padding.century,
@@ -140,11 +142,11 @@ const styles = StyleSheet.create({
         paddingVertical: Padding.smaller,
         paddingHorizontal: Padding.middleFourthSmall,
         alignSelf: 'center',
-        backgroundColor: 'blue'
+        backgroundColor: Colors.ButtnColor
     },
 
     txt: {
-        color: 'white'
+        color:Colors.BasicPrimary
     },
 
     footerWrapper: {
@@ -153,10 +155,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     lastSentence: {
-        fontSize: 15
+        fontSize: Sizes.SmallFtn
     },
     SignUpTxt: {
-        fontSize: 14,
+        fontSize: Sizes.SmallFtn,
         fontWeight: BoldFont.small
     }
 

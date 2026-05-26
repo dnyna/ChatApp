@@ -11,6 +11,7 @@ import Gaps from '../styles/Gaps';
 import BoldFont from '../styles/Bold';
 import { ThemeToggleContex } from '../Context/ThemeContext';
 import Colors from '../styles/Colors';
+import Flexes from '../styles/Flexes';
 const SignUp = () => {
     const { Theme } = useContext(ThemeToggleContex)
     const Navigation = useNavigation()
@@ -117,7 +118,7 @@ export default SignUp
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: Flexes.flexible,
         paddingLeft: Padding.small,
         paddingRight: Padding.small,
         paddingTop: Padding.century,
@@ -186,7 +187,7 @@ const styles = StyleSheet.create({
     },
 
     loginTxt: {
-        fontSize: 14,
+        fontSize: Sizes.SmallFtn,
         fontWeight: BoldFont.small
 
     }

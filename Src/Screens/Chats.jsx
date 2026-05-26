@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import React from 'react'
 import Flexes from '../styles/Flexes'
 // import IonIcons from 'react-native-vector-icons/Ionicons'
@@ -7,6 +7,10 @@ import { useState, useEffect, useCallback } from 'react'
 import firestore from '@react-native-firebase/firestore' // firaebase fireSStore database
 import auth from '@react-native-firebase/auth' // firebase authentication
 import Padding from '../styles/Padding'
+import Margins from '../styles/Margins'
+import Zindexe from '../styles/Zindexe'
+import Colors from '../styles/Colors'
+import RNLinkPreview from 'react-native-link-preview'
 const Chats = ({ route }) => {  // here we are recieving routes from navigation
   const { recieverId } = route.params  //getting Reciever's ID by params
   const CurrentUser = auth().currentUser  // getting Curretly logged in user 
@@ -85,17 +89,42 @@ const Chats = ({ route }) => {  // here we are recieving routes from navigation
   // }, [chatId])
 
   //send message
-  const onSend = useCallback((messageArray = []) => {  // function runs when user sends message wrapped inside useCallback for optimization
+  const onSend = useCallback(async (messageArray = []) => {  // function runs when user sends message wrapped inside useCallback for optimization
     const msg = messageArray[0]                       // gifted chat sends message as array
     if (!msg || !CurrentUser?.uid || !recieverId) {  // stops executions if message missing, user not logged in, or reciever is missing
       return
     }
+
+    let preViewData = null
+
+    //URL detection
+
+    const urlRegex = /(https?:\/\/[^\s]+)/g
+
+    const matchedUrl = msg.text.match(urlRegex)
+
+    //Fetch link preview
+
+    if (matchedUrl) {
+      try {
+        preViewData = RNLinkPreview.getPreview(
+          matchedUrl[0]
+        )
+      } catch {
+        console.log(error)
+      }
+    }
+
+
     const myMessage = { // custom message object
       ...msg,          //copying text user and Id
       sentBy: CurrentUser.uid,   // storing sender user id
       sentTo: recieverId,        // storing reciever user id
       createdAt: new Date(),    // storing current message timing
-      seen: false
+      seen: false,
+
+      //storing Preview
+      preViewData
     }
     setMessages(previousMessages =>  // updating UI immediately and adding message to UI
       GiftedChat.append(previousMessages, [myMessage]),
@@ -118,9 +147,9 @@ const Chats = ({ route }) => {  // here we are recieving routes from navigation
   //   ) : (<IonIcons name='checkmark' color='black' size={18} style={{ marginLeft: 20 }} />)
   // }
   return (
-    <View style={{ flex: Flexes.flexible, paddingBottom: Padding.TooSmalll, }}>
-      <View style={{ position: 'absolute', left: 120, top: -24, zIndex: 1 }}>
-        <Text style={{ color: 'white' }}>
+    <View style={{ flex: Flexes.flexible, paddingBottom: Padding.extrSmall, backgroundColor:'black' }}>
+      <View style={{ position: 'absolute', left: Margins.ThriceFot, top: -Margins.TFay, zIndex: Zindexe.first }}>
+        <Text style={{ color: Colors.primary }}>
           {activeStatus?.online
             ? 'online'
             : 'offline'
@@ -135,8 +164,32 @@ const Chats = ({ route }) => {  // here we are recieving routes from navigation
           name: CurrentUser.email,
 
         }}
-      // isTyping
-      // RenderTicks={TickMarks}
+
+        renderCustomView={(props) => {
+          const Preview = props.currentMessage.preViewData
+          if (!Preview) return null
+          return (
+            <View>
+              {
+                Preview.images?.length > 0 && (
+                  <Image
+                    source={{ uri: Preview.images[0] }}
+                    style={{ width: 200, height: 120 }}
+                  />
+                )
+              }
+              <View style={{ paddingTop: 20 }}>
+                <Text style={{ color: 'blue' }}>{Preview.title}</Text>
+              </View>
+              <View>
+                <Text style={{ color: 'black' }}>{Preview.description}</Text>
+              </View>
+            </View>
+          )
+
+        }}
+
+
       />
     </View>
   )

@@ -2,13 +2,14 @@ import { StyleSheet, Text, View, ActivityIndicator } from 'react-native'
 import React, { useContext } from 'react'
 import Sizes from '../styles/Sizes'
 import { ThemeToggleContex } from '../Context/ThemeContext'
+import Flexes from '../styles/Flexes'
 
 const LoadingPage = () => {
-  const {Theme}= useContext(ThemeToggleContex)
+  const { Theme } = useContext(ThemeToggleContex)
   return (
     <View style={styles.main}>
       <ActivityIndicator size={30} color={"#2c022a"} />
-      <Text style={[styles.loadingTxt, {color:Theme.color}]}> ........loading page..Wait a little bit</Text>
+      <Text style={[styles.loadingTxt, { color: Theme.color }]}> ........loading page..Wait a little bit</Text>
     </View>
   )
 }
@@ -17,7 +18,7 @@ export default LoadingPage
 
 const styles = StyleSheet.create({
   main: {
-    flex: 1,
+    flex: Flexes.flexible,
     alignItems: 'center',
     justifyContent: 'center',
   },

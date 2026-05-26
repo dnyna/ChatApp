@@ -6,6 +6,7 @@ import Sizes from '../styles/Sizes'
 import Radius from '../styles/Radius'
 import BoldFont from '../styles/Bold'
 import Margins from '../styles/Margins'
+import Colors from '../styles/Colors'
 const GetStarted = () => {
     const Illustration = require('../Assets/Illustration.png')
     const Navigation = useNavigation()
@@ -14,7 +15,7 @@ const GetStarted = () => {
             <View style={styles.imgConitainer}>
                 <Image source={Illustration} stye={styles.img} />
             </View>
-            <Text style={styles.connectTxt} numberOfLines={5}>Connect easily with                         your family and friends over countries</Text>
+            <Text style={styles.connectTxt}>Connect easily with                         your family and friends over countries</Text>
             <Text style={styles.termTxt}>Terms & Privacy Policy</Text>
             <View style={styles.btnWrapper}>
                 <TouchableOpacity style={styles.LoginBtn} onPress={() => Navigation.navigate('SignUp')}>
@@ -60,10 +61,10 @@ const styles = StyleSheet.create({
         paddingVertical: Padding.small,
         paddingHorizontal: Padding.century,
         alignSelf: 'center',
-        backgroundColor: 'blue'
+        backgroundColor:Colors.ButtnColor
     },
 
     txt: {
-        color: 'white'
+        color:Colors.BasicPrimary
     },
 })
